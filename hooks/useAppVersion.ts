@@ -27,8 +27,8 @@ export function useAppVersion() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     checkVersion();
 
-    // optional light polling (safe: 5–10 min)
-    intervalRef.current = setInterval(checkVersion, 5 * 60 * 1000);
+    // optional light polling (safe: 1 min)
+    intervalRef.current = setInterval(checkVersion, 1 * 60 * 1000);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
