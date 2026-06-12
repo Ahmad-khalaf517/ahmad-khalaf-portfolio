@@ -64,7 +64,7 @@ export default function Home() {
       </main> */}
       <UpdateBanner />
 
-      Welcome ahmad khalaf
+      Refresh the page to see the latest version:{" "}
     </div>
   );
 }
