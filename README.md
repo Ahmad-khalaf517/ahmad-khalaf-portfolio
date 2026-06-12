@@ -139,14 +139,6 @@ pnpm run build
 pnpm run start
 ```
 
-## Environment Variables
-
-Create a `.env.local` file in the project root:
-
-```env
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-```
-
 ## Contact
 
 * Email: [AhmadKhalaf517@gmail.com](mailto:AhmadKhalaf517@gmail.com)
