@@ -1,4 +1,5 @@
 import { UpdateBanner } from "@/components/app/update-banner";
+import { Demo } from "@/components/demo/demo";
 import Image from "next/image";
 
 export default function Home() {
@@ -62,6 +63,8 @@ export default function Home() {
           </a>
         </div>
       </main> */}
+
+      <Demo />
       <UpdateBanner />
 
       Refresh the page to see the latest version:{" "}
