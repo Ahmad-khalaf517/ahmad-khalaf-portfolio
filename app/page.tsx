@@ -1,9 +1,7 @@
 import { UpdateBanner } from "@/components/app/update-banner";
-import { useAppVersion } from "@/hooks/useAppVersion";
 import Image from "next/image";
 
 export default function Home() {
-  const { hasUpdate, refresh } = useAppVersion();
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -64,7 +62,7 @@ export default function Home() {
           </a>
         </div>
       </main> */}
-      {hasUpdate && <UpdateBanner onReload={refresh} />}
+      <UpdateBanner />
 
       Welcome ahmad khalaf
     </div>
