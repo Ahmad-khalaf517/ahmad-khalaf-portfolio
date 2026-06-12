@@ -67,7 +67,6 @@ export default function Home() {
       <Demo />
       <UpdateBanner />
 
-      Refresh the page to see the latest version:{" "}
     </div>
   );
 }
