@@ -1,4 +1,4 @@
-// hooks/useAppVersion.ts
+"use client";
 import { useEffect, useRef, useState } from "react";
 
 const BUILD_ID = process.env.NEXT_PUBLIC_BUILD_ID;
