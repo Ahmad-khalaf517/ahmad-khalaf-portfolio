@@ -17,6 +17,7 @@ export function useAppVersion() {
       if (data.version && data.version !== BUILD_ID) {
         setHasUpdate(true);
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       // ignore silently
     }

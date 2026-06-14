@@ -2,6 +2,7 @@
   "name": "ahmad-khalaf-portfolio",
   "version": "0.1.0",
   "private": true,
+  "author": "Ahmad Khalaf",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
