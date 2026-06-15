@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -18,7 +19,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="container mx-auto px-6 flex items-center justify-between">
-        <h1 className="">AK <span className="text-primary text-4xl">.</span></h1>
+       <Image src="/logo.svg" alt="Logo" width={100} height={100} className="w-10 h-10" />
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
