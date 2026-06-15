@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronDown, Download } from "lucide-react";
+import { View, ChevronDown, Download } from "lucide-react";
 import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
 import Github from "@/assets/icons/github";
@@ -44,7 +44,10 @@ const dots = Array.from({ length: 30 }).map(() => ({
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center overflow-hidden"
+    >
       {/* Bg */}
       <div className="absolute inset-0">
         <Image
@@ -97,21 +100,27 @@ export default function Hero() {
                 </span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
-                Hi, I&apos;m  <span className="text-primary"> Ahmad Khalaf</span> — a software engineer specializing in
-                React, Next.js, and TypeScript. I build scalable, performant web
-                applications that users love.
+                Hi, I&apos;m <span className="text-primary"> Ahmad Khalaf</span>{" "}
+                — a software engineer specializing in React, Next.js, and
+                TypeScript. I build scalable, performant web applications that
+                users love.
               </p>
             </div>
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
-              <Button size="lg">
-                Contact Me <ArrowRight className="w-5 h-5" />
-              </Button>
-              <AnimatedBorderButton>
-                <Download className="w-5 h-5" />
-                Download CV
-              </AnimatedBorderButton>
+              <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer">
+                <AnimatedBorderButton>
+                  <View className="w-5 h-5" />
+                  View Resume
+                </AnimatedBorderButton>
+              </a>
+              <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer" download>
+                <AnimatedBorderButton>
+                  <Download className="w-5 h-5" />
+                  Download CV
+                </AnimatedBorderButton>
+              </a>
             </div>
 
             {/* Social Links */}
@@ -121,6 +130,7 @@ export default function Hero() {
                 <a
                   key={idx}
                   href={social.href}
+                  target="_blank"
                   className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
                 >
                   {<social.icon className="w-5 h-5" />}
