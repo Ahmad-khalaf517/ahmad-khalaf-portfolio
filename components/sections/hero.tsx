@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { View, ChevronDown, Download } from "lucide-react";
 import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
@@ -10,17 +9,17 @@ const skills = [
   "Next.js",
   "TypeScript",
   "Node.js",
-  "GraphQL",
+  // "GraphQL",
   "PostgreSQL",
-  "MongoDB",
-  "Redis",
+  // "MongoDB",
+  // "Redis",
   "Docker",
-  "AWS",
+  // "AWS",
   "Vercel",
   "Tailwind CSS",
   "Prisma",
-  "Jest",
-  "Cypress",
+  // "Jest",
+  // "Cypress",
   "Figma",
   "Git",
   "GitHub Actions",
@@ -125,7 +124,7 @@ export default function Hero() {
 
             {/* Social Links */}
             <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
-              <span className="text-sm text-muted-foreground">Follow me: </span>
+              <span className="text-md text-muted-foreground">Follow me: </span>
               {socialLinks.map((social, idx) => (
                 <a
                   key={idx}
@@ -180,7 +179,7 @@ export default function Hero() {
 
         {/* Skills Section */}
         <div className="mt-20 animate-fade-in animation-delay-600">
-          <p className="text-sm text-muted-foreground mb-6 text-center">
+          <p className="text-lg text-white mb-6 text-center">
             Technologies I work with
           </p>
           <div className="relative overflow-hidden">
