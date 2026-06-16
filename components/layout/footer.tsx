@@ -28,7 +28,7 @@ export const Footer = () => {
   return (
     <footer className="py-12 border-t border-border">
       <SectionContent>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex flex-col flex-wrap md:flex-row items-center justify-between gap-8">
           {/* Logo & Copyright */}
           <div className="text-center md:text-left">
             <Image
@@ -36,7 +36,7 @@ export const Footer = () => {
               alt="Logo"
               width={100}
               height={100}
-              className="w-10 h-10"
+              className="w-10 h-10 mx-auto md:mx-0"
               loading="eager"
             />
 

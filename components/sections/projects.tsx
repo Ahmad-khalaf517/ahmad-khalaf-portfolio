@@ -3,6 +3,8 @@ import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
 import Github from "@/assets/icons/github";
 import Section from "../app/section";
+import SectionContent from "../app/section-content";
+import SectionTitle from "../app/section-title";
 
 const projects = [
   {
@@ -49,12 +51,10 @@ export default function Projects() {
       {/* Bg glows */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
-      <div className="container mx-auto px-6 relative z-10">
+      <SectionContent>
         {/* Section Header */}
         <div className="text-center mx-auto max-w-3xl mb-16">
-          <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
-            Featured Work
-          </span>
+          <SectionTitle title="Featured Work" />
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
             Projects that
             <span className="font-serif italic font-normal text-white">
@@ -145,7 +145,7 @@ export default function Projects() {
             <ArrowUpRight className="w-5 h-5" />
           </AnimatedBorderButton>
         </div>
-      </div>
+      </SectionContent>
     </Section>
   );
 };
