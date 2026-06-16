@@ -3,6 +3,8 @@ import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
 import Github from "@/assets/icons/github";
 import Linkedin from "@/assets/icons/linkedin";
+import Section from "../app/section";
+import SectionContent from "../app/section-content";
 
 const skills = [
   "React",
@@ -43,9 +45,9 @@ const dots = Array.from({ length: 30 }).map(() => ({
 
 export default function Hero() {
   return (
-    <section
+    <Section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="min-h-screen flex items-center"
     >
       {/* Bg */}
       <div className="absolute inset-0">
@@ -77,7 +79,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
+      <SectionContent className="pt-32 pb-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
@@ -204,7 +206,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </div>
+      </SectionContent>
 
       <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 
@@ -218,6 +220,6 @@ export default function Hero() {
           <ChevronDown className="w-6 h-6 animate-bounce" />
         </a>
       </div>
-    </section>
+    </Section>
   );
 }

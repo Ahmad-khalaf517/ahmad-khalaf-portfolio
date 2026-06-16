@@ -11,6 +11,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { SubmitEventHandler, useState } from "react";
 import emailjs from "@emailjs/browser";
+import SectionTitle from "../app/section-title";
+import SectionContent from "../app/section-content";
+import Section from "../app/section";
 
 const contactInfo = [
   {
@@ -92,18 +95,16 @@ export default function Contact() {
     }
   };
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
+    <Section id="contact" className="py-32">
       <div className="absolute top-0 left-0 w-full h-full">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <SectionContent>
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-secondary-foreground text-sm font-medium tracking-wider uppercase animate-fade-in">
-            Get In Touch
-          </span>
+          <SectionTitle title="Get In Touch" />
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
             Let&apos;s build{" "}
             <span className="font-serif italic font-normal text-white">
@@ -253,7 +254,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </SectionContent>
+    </Section>
   );
 }
