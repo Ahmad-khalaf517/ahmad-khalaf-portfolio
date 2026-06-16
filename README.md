@@ -83,14 +83,43 @@ My expertise includes React, TypeScript, modern UI development, performance opti
 ## Project Structure
 
 ```text
-src/
-├── app/              # Next.js App Router
-├── components/       # Reusable UI components
-├── sections/         # Portfolio sections
-├── hooks/            # Custom React hooks
-├── lib/              # Utilities and helpers
-├── assets/           # Static assets
-└── styles/           # Global styles
+├── app/
+│   ├── api/
+│   │   └── version/
+│   │       └── route.ts
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── assets/
+│   ├── icons/
+│   └── images/
+├── components/
+│   ├── app/
+│   │   ├── section-content.tsx
+│   │   ├── section-title.tsx
+│   │   ├── section.tsx
+│   │   └── update-banner.tsx
+│   ├── layout/
+│   │   ├── footer.tsx
+│   │   ├── header.tsx
+│   │   └── navbar.tsx
+│   ├── sections/
+│   │   ├── about.tsx
+│   │   ├── contact.tsx
+│   │   ├── experience.tsx
+│   │   ├── hero.tsx
+│   │   ├── hire-me.tsx
+│   │   ├── projects.tsx
+│   │   ├── skills.tsx
+│   │   └── technologies.tsx
+│   └── ui/
+│       ├── animated-border-button.tsx
+│       └── button.tsx
+├── hooks/
+│   ├── useAppVersion.ts
+│   └── useScrolledY.ts
+└── public/
+    └── projects/
 ```
 
 ## Getting Started
@@ -100,7 +129,7 @@ src/
 Make sure you have the following installed:
 
 * Node.js 20+
-* npm
+* pnpm
 
 ### Clone the Repository
 
@@ -113,6 +142,16 @@ cd MyPortfolio
 
 ```bash
 pnpm install
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the project root and add the following EmailJS keys:
+
+```env
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
 ### Run the Development Server

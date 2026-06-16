@@ -7,6 +7,8 @@ import {
   Zap,
   ArrowUpRight,
 } from "lucide-react";
+import Section from "../app/section";
+import SectionContent from "../app/section-content";
 
 export default function WhyHireMe() {
   const values = [
@@ -37,14 +39,11 @@ export default function WhyHireMe() {
   ];
 
   return (
-    <section
+    <Section
       id="hire-me"
-      className="relative py-24 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden bg-background text-foreground border-t border-border"
+      className="relative py-24 border-t border-border"
     >
-      {/* Soft background ambient glow */}
-      <div className="absolute left-1/3 top-1/2 -z-10 h-96 w-96 rounded-full bg-[color-mix(in_srgb,var(--color-primary)_5%,transparent)] blur-[140px]" />
-
-      <div className="space-y-16 relative z-10">
+      <SectionContent className="space-y-16 relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 text-(--color-primary) font-semibold text-xs uppercase tracking-widest mb-3 bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] px-3 py-1 rounded-full border border-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]">
@@ -109,7 +108,7 @@ export default function WhyHireMe() {
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
-      </div>
-    </section>
+      </SectionContent>
+    </Section>
   );
 }
