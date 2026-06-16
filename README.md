@@ -2,6 +2,10 @@
 
 A modern and responsive portfolio website built with **Next.js**, **TypeScript**, and **Tailwind CSS** to showcase my professional experience, technical skills, and featured projects.
 
+## Live Demo
+
+Visit the deployed website: [https://ahmad-khalaf-portfolio.vercel.app/](https://ahmad-khalaf-portfolio.vercel.app/)
+
 ## About
 
 I'm Ahmad Khalaf, a Front-End Developer with more than 5 years of experience building scalable and high-performance web applications.
@@ -19,66 +23,6 @@ My expertise includes React, TypeScript, modern UI development, performance opti
 * SEO optimization
 * Fast performance and optimized loading
 * Dark mode support
-
-## Tech Stack
-
-### Frontend
-
-* Next.js
-* React
-* TypeScript
-* Tailwind CSS
-* shadcn/ui
-* Motion
-* CSS3
-* Sass
-
-### State Management
-* Redux
-* Zustand
-* React Context
-* React Hooks
-
-### Backend
-
-* NestJS
-* Flask
-* REST APIs
-
-### Database
-
-* PostgreSQL
-* MySQL
-
-### Tools
-
-* Git
-* GitHub
-* Docker
-* GitHub Actions
-* Postman
-
-## Professional Experience
-
-### Full Stack Developer — SCHEDEX
-
-**2021 – Present**
-
-* Developed scalable web applications using React and Next.js
-* Built responsive interfaces with Tailwind CSS
-* Improved application performance and SEO
-* Integrated REST APIs
-* Contributed to backend development using NestJS and PostgreSQL
-
-### Freelance Electron + React Developer
-
-**2025 – Present**
-
-* Built cross-platform desktop applications
-* Implemented secure IPC communication
-* Integrated local databases
-* Delivered production-ready desktop solutions
-
 
 ## Project Structure
 
