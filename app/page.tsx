@@ -7,6 +7,7 @@ import Header from "@/components/layout/header";
 import Skills from "@/components/sections/skills";
 import Technologies from "@/components/sections/technologies";
 import HireMe from "@/components/sections/hire-me";
+import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <HireMe />
         <Contact />
       </main>
+      <Footer />
     </div>
   );
 }

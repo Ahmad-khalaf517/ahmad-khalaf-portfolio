@@ -1,15 +1,24 @@
-import { Github, Linkedin, Twitter, Heart } from "lucide-react";
+import Github from "@/assets/icons/github";
+import Linkedin from "@/assets/icons/linkedin";
+import Image from "next/image";
+import SectionContent from "../app/section-content";
 
 const socialLinks = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
+  { icon: Github, href: "https://github.com/Ahmad-khalaf517", label: "GitHub" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/ahmad-khalaf-7a2637264/",
+    label: "LinkedIn",
+  },
 ];
 
 const footerLinks = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
+  { href: "#hero", label: "About" },
+  { href: "#about", label: "Projects" },
+  { href: "#skills", label: "Experience" },
+  // { href: "#experience", label: "Experience" },
+  // { href: "#testimonials", label: "Testimonials" },
+  { href: "#hire-me", label: "Hire Me" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -18,15 +27,21 @@ export const Footer = () => {
 
   return (
     <footer className="py-12 border-t border-border">
-      <div className="container mx-auto px-6">
+      <SectionContent>
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo & Copyright */}
           <div className="text-center md:text-left">
-            <a href="#" className="text-xl font-bold tracking-tight">
-              PM<span className="text-primary">.</span>
-            </a>
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={100}
+              height={100}
+              className="w-10 h-10"
+              loading="eager"
+            />
+
             <p className="text-sm text-muted-foreground mt-2">
-              © {currentYear} Pedro Machado. All rights reserved.
+              © {currentYear} Ahmad Khalaf. All rights reserved.
             </p>
           </div>
 
@@ -50,6 +65,7 @@ export const Footer = () => {
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
+                target="_blank"
                 className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
               >
                 <social.icon className="w-5 h-5" />
@@ -57,7 +73,7 @@ export const Footer = () => {
             ))}
           </div>
         </div>
-      </div>
+      </SectionContent>
     </footer>
   );
 };
