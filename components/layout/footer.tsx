@@ -31,15 +31,16 @@ export const Footer = () => {
         <div className="flex flex-col flex-wrap md:flex-row items-center justify-between gap-8">
           {/* Logo & Copyright */}
           <div className="text-center md:text-left">
-            <Image
-              src="/logo.svg"
-              alt="Logo"
-              width={100}
-              height={100}
-              className="w-10 h-10 mx-auto md:mx-0"
-              loading="eager"
-            />
-
+            <a href="#">
+              <Image
+                src="/logo.svg"
+                alt="Logo"
+                width={100}
+                height={100}
+                className="w-10 h-10"
+                loading="eager"
+              />
+            </a>
             <p className="text-sm text-muted-foreground mt-2">
               © {currentYear} Ahmad Khalaf. All rights reserved.
             </p>

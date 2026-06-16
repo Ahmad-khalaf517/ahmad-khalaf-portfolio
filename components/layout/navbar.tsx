@@ -19,7 +19,16 @@ export default function Navbar() {
   return (
     <>
       <nav className="container mx-auto px-6 flex items-center justify-between">
-       <Image src="/logo.svg" alt="Logo" width={100} height={100} className="w-10 h-10" loading="eager" />
+        <a href="#">
+          <Image
+            src="/logo.svg"
+            alt="Logo"
+            width={100}
+            height={100}
+            className="w-10 h-10"
+            loading="eager"
+          />
+        </a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
@@ -39,7 +48,11 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <div className="hidden md:block">
-          <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer">
+          <a
+            href="/Ahmad-khalaf-Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Button size="sm">
               <View className="w-5 h-5" /> View Resume
             </Button>
@@ -70,9 +83,14 @@ export default function Navbar() {
               </a>
             ))}
 
-            <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+            <a
+              href="/Ahmad-khalaf-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
               <Button>
-               <View className="w-5 h-5" /> View Resume
+                <View className="w-5 h-5" /> View Resume
               </Button>
             </a>
           </div>
