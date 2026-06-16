@@ -38,7 +38,7 @@ export default function WhyHireMe() {
 
   return (
     <section
-      id="why-hire"
+      id="hire-me"
       className="relative py-24 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden bg-background text-foreground border-t border-border"
     >
       {/* Soft background ambient glow */}
