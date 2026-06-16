@@ -7,7 +7,7 @@ const buildId =
 
 const nextConfig: NextConfig = {
   env: {
-    NEXT_PUBLIC_BUILD_ID: buildId,
+    NEXT_PUBLIC_BUILD_ID: buildId,    
   }
   /* config options here */
 };
