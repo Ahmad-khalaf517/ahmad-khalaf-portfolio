@@ -54,6 +54,7 @@ export default function Hero() {
           alt="Hero image"
           className="w-full h-full object-cover opacity-40"
           fill
+          preload
         />
         <div className="absolute inset-0 bg-linear-to-b from-background/20 via-background/80 to-background" />
       </div>
@@ -153,6 +154,7 @@ export default function Hero() {
                   height={430}
                   src="/ahmad-khalaf.png"
                   alt="Ahmad Khalaf"
+                  loading="eager"
                   className="w-full aspect-square object-cover rounded-2xl"
                 />
 
