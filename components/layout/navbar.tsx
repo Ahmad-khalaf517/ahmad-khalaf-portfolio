@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, View, X } from "lucide-react";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -39,7 +39,11 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <div className="hidden md:block">
-          <Button size="sm">Contact Me</Button>
+          <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer">
+            <Button size="sm">
+              <View className="w-5 h-5" /> View Resume
+            </Button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -66,9 +70,11 @@ export default function Navbar() {
               </a>
             ))}
 
-            <Button onClick={() => setIsMobileMenuOpen(false)}>
-              Contact Me
-            </Button>
+            <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button>
+               <View className="w-5 h-5" /> View Resume
+              </Button>
+            </a>
           </div>
         </div>
       )}

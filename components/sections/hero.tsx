@@ -111,12 +111,6 @@ export default function Hero() {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
-              <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer">
-                <AnimatedBorderButton>
-                  <View className="w-5 h-5" />
-                  View Resume
-                </AnimatedBorderButton>
-              </a>
               <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer" download>
                 <AnimatedBorderButton>
                   <Download className="w-5 h-5" />
