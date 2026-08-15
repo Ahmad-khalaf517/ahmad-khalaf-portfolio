@@ -115,6 +115,7 @@ export default function Hero({
                     key={social.platform}
                     href={social.href}
                     target="_blank"
+                    aria-label={social.platform}
                     className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
                   >
                     <Icon className="w-5 h-5" />

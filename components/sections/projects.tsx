@@ -58,6 +58,7 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                    <a
                     href={project.link}
                     target="_blank"
+                    aria-label={`View ${project.title} live`}
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <ArrowUpRight className="w-5 h-5" />
@@ -66,6 +67,7 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                   <a
                     href={project.github}
                     target="_blank"
+                    aria-label={`View ${project.title} source on GitHub`}
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <Github className="w-5 h-5" />
