@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
+// import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
 import Github from "@/assets/icons/github";
 import Section from "../app/section";
@@ -52,16 +52,20 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                 bg-linear-to-t from-card via-card/50
                  to-transparent opacity-60"
                 />
-                {/* Overlay Links */}
-                <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <a
+                {/* Overlay Links — always visible on mobile (no hover there), hover-revealed on desktop */}
+                <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+                 {project.link && (
+                   <a
                     href={project.link}
+                    target="_blank"
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <ArrowUpRight className="w-5 h-5" />
                   </a>
+                 )}
                   <a
                     href={project.github}
+                    target="_blank"
                     className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <Github className="w-5 h-5" />
@@ -101,12 +105,12 @@ export default function Projects({ content }: { content: ProjectsContent }) {
         </div>
 
         {/* View All CTA */}
-        <div className="text-center mt-12 animate-fade-in animation-delay-500">
+        {/* <div className="text-center mt-12 animate-fade-in animation-delay-500">
           <AnimatedBorderButton>
             {content.ctaLabel}
             <ArrowUpRight className="w-5 h-5" />
           </AnimatedBorderButton>
-        </div>
+        </div> */}
       </SectionContent>
     </Section>
   );

@@ -62,7 +62,7 @@ export interface ProjectItem {
   description: string;
   image: string;
   tags: string[];
-  link: string;
+  link?: string;
   github: string;
 }
 

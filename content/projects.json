@@ -8,28 +8,27 @@
   "ctaLabel": "View All Projects",
   "items": [
     {
-      "title": "Fintech Dashboard",
-      "description": "A comprehensive financial analytics platform with real-time data visualization, portfolio management, and AI-powered insights.",
-      "image": "/projects/project1.png",
-      "tags": ["React", "Typescript", "NodeJS"],
-      "link": "#",
-      "github": "#"
+      "title": "Boardly",
+      "description": "BillBoard Hub: a Next.js/MongoDB SaaS for booking and managing physical billboard ad space — advertisers reserve/pay (Stripe) for slots, admins schedule and approve, replacing manual, error-prone billboard sales coordination.",
+      "image": "/projects/boardly.png",
+      "tags": ["Next.js", "Typescript", "MongoDB"],
+      "link": "https://billboard-hub.vercel.app/",
+      "github": "https://github.com/abdalrahmanhajjo/BillBoard-Hub"
     },
     {
-      "title": "E-Commerce Platform",
-      "description": "A full-featured e-commerce solution with inventory management, payment processing, and analytics dashboard.",
-      "image": "/projects/project2.png",
-      "tags": ["Next.js", "Stripe", "PostgreSQL", "Tailwind"],
-      "link": "#",
-      "github": "#"
+      "title": "Lobby",
+      "description": "Link-to-join Discord-style chat app (Angular + NestJS) with registered/anonymous Supabase auth, Postgres persistence, and LiveKit audio calls + screen share.",
+      "image": "/projects/lobby.jpg",
+      "tags": ["Angular", "LiveKit", "Supabase", "Tailwind", "PostgreSql", "Socket.io"],
+      "link": "https://lobby-hub.vercel.app/",
+      "github": "https://github.com/Ahmad-khalaf517/lobby"
     },
     {
-      "title": "Project Management Tool",
-      "description": "A collaborative workspace for teams with real-time updates, task tracking, and integrations.",
-      "image": "/projects/project4.png",
-      "tags": ["Next.js", "Socket.io", "MongoDB", "Redis"],
-      "link": "#",
-      "github": "#"
+      "title": "SRMS",
+      "description": "SRMS is a role-based restaurant management system built to support the day-to-day workflow of a restaurant team from a single web platform.",
+      "image": "/projects/srms.jpeg",
+      "tags": ["React", "Socket.io", "MongoDB", "Express", "MERN Stack", "Shadcn/ui", "Tailwind"],
+      "github": "https://github.com/Ahmad-khalaf517/SRMS"
     }
   ]
 }
