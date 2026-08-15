@@ -35,8 +35,20 @@ function TimelineRow({ exp, idx }: { exp: ExperienceItem; idx: number }) {
           idx % 2 === 0 ? "md:pr-16 md:text-right" : "md:col-start-2 md:pl-16"
         }`}
       >
-        <div className="glass p-6 rounded-2xl border border-primary/30 hover:border-primary/50 transition-all duration-500">
-          <span className="text-sm text-primary font-medium">{exp.period}</span>
+        <div
+          className={`glass p-6 rounded-2xl border border-primary/30 hover:border-primary/50 transition-all duration-500 ${
+            exp.current ? "animate-card-glow" : ""
+          }`}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-sm text-primary font-medium">{exp.period}</span>
+            {exp.current && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 border border-primary/30 text-xs font-medium text-primary shrink-0">
+                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
+                Active
+              </span>
+            )}
+          </div>
           <h3 className="text-xl font-semibold mt-2">{exp.role}</h3>
           <p className="text-muted-foreground">{exp.company}</p>
           <p className="text-sm text-muted-foreground mt-4">{exp.description}</p>
