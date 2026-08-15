@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
-import { Menu, View, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { ResumeButtonGroup } from "@/components/ui/resume-button-group";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -16,7 +16,7 @@ const navLinks = [
 // mis-highlighted while the user is still at the top of the page.
 const sectionIds = ["hero", "about", "experience", "projects", "hire-me", "contact"];
 
-export default function Navbar() {
+export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const activeSection = useActiveSection(sectionIds);
 
@@ -60,15 +60,7 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <div className="hidden md:block">
-          <a
-            href="/Ahmad-khalaf-Resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button size="sm">
-              <View className="w-5 h-5" /> View Resume
-            </Button>
-          </a>
+          <ResumeButtonGroup resumeUrl={resumeUrl} />
         </div>
 
         {/* Mobile Menu Button */}
@@ -103,16 +95,9 @@ export default function Navbar() {
               );
             })}
 
-            <a
-              href="/Ahmad-khalaf-Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <Button>
-                <View className="w-5 h-5" /> View Resume
-              </Button>
-            </a>
+            <div onClick={() => setIsMobileMenuOpen(false)}>
+              <ResumeButtonGroup resumeUrl={resumeUrl} className="w-full" />
+            </div>
           </div>
         </div>
       )}
