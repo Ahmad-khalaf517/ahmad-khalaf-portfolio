@@ -1,0 +1,14 @@
+[
+  { "name": "React", "icon": "react" },
+  { "name": "Next.js", "icon": "nextjs" },
+  { "name": "TypeScript", "icon": "typescript" },
+  { "name": "Node.js", "icon": "nodejs" },
+  { "name": "PostgreSQL", "icon": "postgresql" },
+  { "name": "Docker", "icon": "docker" },
+  { "name": "Vercel", "icon": "vercel" },
+  { "name": "Tailwind CSS", "icon": "tailwindcss" },
+  { "name": "Prisma", "icon": "prisma" },
+  { "name": "Figma", "icon": "figma" },
+  { "name": "Git", "icon": "git" },
+  { "name": "GitHub Actions", "icon": "githubactions" }
+]

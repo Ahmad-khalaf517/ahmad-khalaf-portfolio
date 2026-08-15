@@ -14,34 +14,21 @@ import emailjs from "@emailjs/browser";
 import SectionTitle from "../app/section-title";
 import SectionContent from "../app/section-content";
 import Section from "../app/section";
+import type { ContactContent, ContactIconKey } from "@/lib/content/types";
 
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "ahmadkhalaf517@gmail.com",
-    href: "mailto:ahmadkhalaf517@gmail.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+961 76 661 986",
-    href: "tel:+96176661986",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Lebanon, Beirut",
-    href: "#",
-  },
-];
+const contactIcons: Record<ContactIconKey, typeof Mail> = {
+  mail: Mail,
+  phone: Phone,
+  "map-pin": MapPin,
+};
 
-export default function Contact() {
+export default function Contact({ content }: { content: ContactContent }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+  const [website, setWebsite] = useState(""); // honeypot: real users never fill this
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{
     type: "success" | "error" | null;
@@ -53,6 +40,12 @@ export default function Contact() {
 
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+
+    if (website) {
+      // Bot filled the hidden field — silently drop without hitting EmailJS.
+      setFormData({ name: "", email: "", message: "" });
+      return;
+    }
 
     setIsLoading(true);
     setSubmitStatus({ type: null, message: "" });
@@ -104,16 +97,15 @@ export default function Contact() {
       <SectionContent>
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <SectionTitle title="Get In Touch" />
+          <SectionTitle title={content.header.eyebrow} />
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
-            Let&apos;s build{" "}
+            {content.header.heading}{" "}
             <span className="font-serif italic font-normal text-white">
-              something great.
+              {content.header.headingAccent}
             </span>
           </h2>
           <p className="text-muted-foreground animate-fade-in animation-delay-200">
-            Have a project in mind? I&apos;d love to hear about it. Send me a
-            message and let&apos;s discuss how we can work together.
+            {content.header.description}
           </p>
         </div>
 
@@ -177,6 +169,20 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Honeypot field — hidden from real users, bots tend to fill every field */}
+              <div className="absolute -left-2499.75 w-px h-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </div>
+
               <Button
                 className="w-full"
                 type="submit"
@@ -220,23 +226,26 @@ export default function Contact() {
                 Contact Information
               </h3>
               <div className="space-y flex flex-col gap-2 max-w-full">
-                {contactInfo.map((item, i) => (
-                  <a
-                    key={i}
-                    href={item.href}
-                    className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface transition-colors group border border-border/50"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <item.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <div className="overflow-hidden">
-                      <div className="text-sm text-muted-foreground">
-                        {item.label}
+                {content.info.map((item, i) => {
+                  const Icon = contactIcons[item.icon];
+                  return (
+                    <a
+                      key={i}
+                      href={item.href}
+                      className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface transition-colors group border border-border/50"
+                    >
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <Icon className="w-5 h-5 text-primary" />
                       </div>
-                      <div title={item.value} className="font-medium truncate">{item.value}</div>
-                    </div>
-                  </a>
-                ))}
+                      <div className="overflow-hidden">
+                        <div className="text-sm text-muted-foreground">
+                          {item.label}
+                        </div>
+                        <div title={item.value} className="font-medium truncate">{item.value}</div>
+                      </div>
+                    </a>
+                  );
+                })}
               </div>
             </div>
 
@@ -244,12 +253,10 @@ export default function Contact() {
             <div className="glass rounded-3xl p-8 border border-primary/30">
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                <span className="font-medium">Currently Available</span>
+                <span className="font-medium">{content.availabilityTitle}</span>
               </div>
               <p className="text-muted-foreground text-sm">
-                I&apos;m currently open to new opportunities and exciting
-                projects. Whether you need a full-time engineer or a freelance
-                consultant, let&apos;s talk!
+                {content.availabilityDescription}
               </p>
             </div>
           </div>

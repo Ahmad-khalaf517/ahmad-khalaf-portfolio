@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm info *)",
+      "Bash(pnpm add *)",
+      "Bash(node -e \"const si = require\\('simple-icons'\\); console.log\\(Object.keys\\(si\\).filter\\(k => /react|next|typescript|node|postgres|docker|vercel|tailwind|prisma|figma|^siGit|githubactions/i.test\\(k\\)\\)\\)\")",
+      "Bash(node -e \"const {siReact} = require\\('simple-icons'\\); console.log\\(Object.keys\\(siReact\\)\\); console.log\\(siReact.path.slice\\(0,50\\)\\);\")",
+      "Bash(npx tsc *)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm build *)",
+      "Bash(pnpm dev *)",
+      "Bash(npx chromium-cli *)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(npm ls *)",
+      "Bash(node -e \"require.resolve\\('playwright-core'\\)\")",
+      "Bash(npx --yes playwright@1.49 node verify.mjs)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(node verify.mjs)",
+      "Bash(npx playwright *)",
+      "Bash(timeout 30 bash -c 'until curl -sf http://localhost:3000/ >/dev/null 2>&1; do sleep 1; done')",
+      "Bash(curl -s http://localhost:3000/ -o /tmp/page2.html -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(node verify2.mjs)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

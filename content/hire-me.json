@@ -1,0 +1,32 @@
+{
+  "badgeLabel": "Core Value",
+  "heading": "What I bring to",
+  "headingAccent": "your engineering team",
+  "description": "With a Bachelor's in Computer Science and over 5 years of professional evolution, I blend rigorous engineering fundamentals with real-world leadership. Here is why I am ready to hit the ground running on your product:",
+  "values": [
+    {
+      "icon": "code",
+      "title": "Adaptable & Growth-Driven",
+      "description": "Proven track record of evolving with the industry. Successfully transitioned from a 2-year foundation in Windows Forms desktop architecture to mastering modern web ecosystems through proactive, self-directed learning."
+    },
+    {
+      "icon": "users",
+      "title": "Remote Leadership Experience",
+      "description": "Rose to Lead Front-End Developer at Schedex within a distributed team. Deeply experienced in API integration, shaping frontend architecture, and collaborating closely across design and backend boundaries under high autonomy."
+    },
+    {
+      "icon": "shield",
+      "title": "Accountable & Proactive",
+      "description": "Remote work has sharpened my self-management, absolute accountability, and cross-timezone communication skills. I don't just wait for tasks; I proactively solve blockers before they hit production."
+    },
+    {
+      "icon": "heart-handshake",
+      "title": "User-Centric Philosophy",
+      "description": "I firmly believe software is about helping people, not just writing code. I excel at taking a complex problem, translating user pain points into practical solutions, and delivering rewarding user experiences."
+    }
+  ],
+  "ctaHeading": "Looking for a developer who owns the problem?",
+  "ctaDescription": "I'm searching for a collaborative engineering team where I can contribute full-stack value, tackle complex systems, and deliver features that make an actual impact on daily operations.",
+  "ctaLabel": "Let's build together",
+  "ctaHref": "#contact"
+}

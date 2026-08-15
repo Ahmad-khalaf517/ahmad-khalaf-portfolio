@@ -102,6 +102,14 @@
     animation: fade-in 0.8s ease-out both;
   }
 
+  /* Sections stay paused at the fade-in's initial frame (opacity: 0) until
+     the Section component observes them entering the viewport and adds
+     `.in-view` — see hooks/useInView.ts. Scoped to `section` so it never
+     touches unrelated `.animate-fade-in` uses (mobile nav menu, toasts). */
+  section:not(.in-view) .animate-fade-in {
+    animation-play-state: paused;
+  }
+
   .animate-float {
     animation: float 4s ease-in-out infinite;
   }

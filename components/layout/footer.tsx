@@ -14,10 +14,8 @@ const socialLinks = [
 
 const footerLinks = [
   { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  // { href: "#skills", label: "Experience" },
   { href: "#experience", label: "Experience" },
-  // { href: "#testimonials", label: "Testimonials" },
+  { href: "#projects", label: "Projects" },
   { href: "#hire-me", label: "Hire Me" },
   { href: "#contact", label: "Contact" },
 ];

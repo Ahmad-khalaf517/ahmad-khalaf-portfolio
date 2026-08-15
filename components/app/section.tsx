@@ -1,10 +1,20 @@
+"use client";
+
+import { useInView } from "@/hooks/useInView";
+
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
 }
 
 export default function Section({ children, ...props }: SectionProps) {
+  const { ref, isInView } = useInView<HTMLElement>();
+
   return (
-    <section {...props} className={`relative overflow-hidden ${props.className || ""}`}>
+    <section
+      {...props}
+      ref={ref}
+      className={`relative overflow-hidden ${isInView ? "in-view" : ""} ${props.className || ""}`}
+    >
       {children}
     </section>
   )

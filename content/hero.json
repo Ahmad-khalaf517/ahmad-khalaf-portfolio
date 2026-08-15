@@ -1,0 +1,18 @@
+{
+  "badgeText": "Software Engineer • React Specialist",
+  "name": "Ahmad Khalaf",
+  "headlinePrefix": "Crafting",
+  "headlineHighlight": "digital",
+  "headlineMiddle": "experiences with",
+  "headlineAccent": "precision.",
+  "subtext": "a software engineer specializing in React, Next.js, and TypeScript. I build scalable, performant web applications that users love.",
+  "resumeUrl": "/Ahmad-khalaf-Resume.pdf",
+  "yearsExperience": "5+",
+  "yearsLabel": "Years Exp.",
+  "availabilityText": "Available for work",
+  "profileImage": "/ahmad-khalaf.png",
+  "socialLinks": [
+    { "platform": "github", "href": "https://github.com/Ahmad-khalaf517" },
+    { "platform": "linkedin", "href": "https://www.linkedin.com/in/ahmad-khalaf-7a2637264/" }
+  ]
+}

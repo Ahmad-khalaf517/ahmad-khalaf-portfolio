@@ -1,39 +1,18 @@
-import { View, ChevronDown, Download } from "lucide-react";
+import { ChevronDown, Download } from "lucide-react";
 import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
 import Github from "@/assets/icons/github";
 import Linkedin from "@/assets/icons/linkedin";
 import Section from "../app/section";
 import SectionContent from "../app/section-content";
+import { CountUp } from "@/components/ui/count-up";
+import TechIcon from "@/assets/icons/tech-icon";
+import type { HeroContent, SocialLink, TechnologyItem } from "@/lib/content/types";
 
-const skills = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Node.js",
-  // "GraphQL",
-  "PostgreSQL",
-  // "MongoDB",
-  // "Redis",
-  "Docker",
-  // "AWS",
-  "Vercel",
-  "Tailwind CSS",
-  "Prisma",
-  // "Jest",
-  // "Cypress",
-  "Figma",
-  "Git",
-  "GitHub Actions",
-];
-
-const socialLinks = [
-  { icon: Github, href: "https://github.com/Ahmad-khalaf517" },
-  {
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/ahmad-khalaf-7a2637264/",
-  },
-];
+const socialIcons: Record<SocialLink["platform"], typeof Github> = {
+  github: Github,
+  linkedin: Linkedin,
+};
 
 const dots = Array.from({ length: 30 }).map(() => ({
   id: crypto.randomUUID(),
@@ -43,7 +22,13 @@ const dots = Array.from({ length: 30 }).map(() => ({
   animationDelay: Math.random() * 5,
 }));
 
-export default function Hero() {
+export default function Hero({
+  content,
+  technologies,
+}: {
+  content: HeroContent;
+  technologies: TechnologyItem[];
+}) {
   return (
     <Section
       id="hero"
@@ -86,32 +71,33 @@ export default function Hero() {
             <div className="animate-fade-in">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                Software Engineer • React Specialist
+                {content.badgeText}
               </span>
             </div>
 
             {/* Headline */}
             <div className="space-y-4">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fade-in animation-delay-100">
-                Crafting <span className="text-primary glow-text">digital</span>
+                {content.headlinePrefix}{" "}
+                <span className="text-primary glow-text">
+                  {content.headlineHighlight}
+                </span>
                 <br />
-                experiences with
+                {content.headlineMiddle}
                 <br />
                 <span className="font-serif italic font-normal text-white">
-                  precision.
+                  {content.headlineAccent}
                 </span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
-                Hi, I&apos;m <span className="text-primary"> Ahmad Khalaf</span>{" "}
-                — a software engineer specializing in React, Next.js, and
-                TypeScript. I build scalable, performant web applications that
-                users love.
+                Hi, I&apos;m <span className="text-primary"> {content.name}</span>{" "}
+                — {content.subtext}
               </p>
             </div>
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
-              <a href="/Ahmad-khalaf-Resume.pdf" target="_blank" rel="noopener noreferrer" download>
+              <a href={content.resumeUrl} target="_blank" rel="noopener noreferrer" download>
                 <AnimatedBorderButton>
                   <Download className="w-5 h-5" />
                   Download CV
@@ -122,16 +108,19 @@ export default function Hero() {
             {/* Social Links */}
             <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
               <span className="text-md text-muted-foreground">Follow me: </span>
-              {socialLinks.map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.href}
-                  target="_blank"
-                  className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
-                >
-                  {<social.icon className="w-5 h-5" />}
-                </a>
-              ))}
+              {content.socialLinks.map((social) => {
+                const Icon = socialIcons[social.platform];
+                return (
+                  <a
+                    key={social.platform}
+                    href={social.href}
+                    target="_blank"
+                    className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                );
+              })}
             </div>
           </div>
           {/* Right Column - Profile Image */}
@@ -139,17 +128,17 @@ export default function Hero() {
             {/* Profile Image */}
             <div className="max-w-md mx-auto">
               <div
-                className="absolute inset-0 
-              rounded-3xl bg-linear-to-br 
-              from-primary/30 via-transparent 
+                className="absolute inset-0
+              rounded-3xl bg-linear-to-br
+              from-primary/30 via-transparent
               to-primary/10 blur-2xl animate-pulse"
               />
               <div className="relative glass rounded-2xl p-2 glow-border">
                 <Image
                   width={430}
                   height={430}
-                  src="/ahmad-khalaf.png"
-                  alt="Ahmad Khalaf"
+                  src={content.profileImage}
+                  alt={content.name}
                   loading="eager"
                   className="w-full aspect-square object-cover rounded-2xl"
                 />
@@ -159,15 +148,17 @@ export default function Hero() {
                   <div className="flex items-center gap-3">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                     <span className="text-sm font-medium">
-                      Available for work
+                      {content.availabilityText}
                     </span>
                   </div>
                 </div>
                 {/* Stats Badge */}
                 <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float animation-delay-500">
-                  <div className="text-2xl font-bold text-primary">5+</div>
+                  <div className="text-2xl font-bold text-primary">
+                    <CountUp value={content.yearsExperience} />
+                  </div>
                   <div className="text-xs text-muted-foreground">
-                    Years Exp.
+                    {content.yearsLabel}
                   </div>
                 </div>
               </div>
@@ -180,7 +171,7 @@ export default function Hero() {
           <p className="text-lg text-white mb-6 text-center">
             Technologies I work with
           </p>
-          <div className="relative overflow-hidden">
+          <div className="relative overflow-hidden group/marquee">
             <div
               className="absolute left-0 top-0 bottom-0 w-32
              bg-linear-to-r from-background to-transparent z-10"
@@ -189,11 +180,18 @@ export default function Hero() {
               className="absolute right-0 top-0 bottom-0 w-32
              bg-linear-to-l from-background to-transparent z-10"
             />
-            <div className="flex animate-marquee">
-              {[...skills, ...skills].map((skill, idx) => (
-                <div key={idx} className="shrink-0 px-8 py-4">
-                  <span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors">
-                    {skill}
+            <div className="flex animate-marquee group-hover/marquee:[animation-play-state:paused]">
+              {[...technologies, ...technologies].map((tech, idx) => (
+                <div
+                  key={idx}
+                  className="group/tech shrink-0 px-8 py-4 flex items-center gap-3"
+                >
+                  <TechIcon
+                    icon={tech.icon}
+                    className="w-6 h-6 opacity-60 group-hover/tech:opacity-100 transition-opacity"
+                  />
+                  <span className="text-xl font-semibold text-muted-foreground/50 group-hover/tech:text-muted-foreground transition-colors">
+                    {tech.name}
                   </span>
                 </div>
               ))}
@@ -203,7 +201,7 @@ export default function Hero() {
       </SectionContent>
 
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2
       animate-fade-in animation-delay-800"
       >
         <a
