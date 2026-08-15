@@ -21,7 +21,7 @@ export default function WhyHireMe({ content }: { content: HireMeContent }) {
   return (
     <Section
       id="hire-me"
-      className="relative py-24! border-t border-border"
+      className="relative py-16! md:py-24! border-t border-border"
     >
       <SectionContent className="space-y-16 relative z-10">
         {/* Section Header */}
