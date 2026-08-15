@@ -1,20 +1,27 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import TechIcon from "@/assets/icons/tech-icon";
 import type { TechnologyItem } from "@/lib/content/types";
 
 const REPEAT = 3;
 const AUTO_SCROLL_SPEED = 40; // px/sec
-const RESUME_DELAY = 1000; // ms of idle time before auto-scroll resumes
+const RESUME_DELAY = 1000; // ms of idle time before auto-scroll resumes / controls hide
+const BUTTON_SCROLL_FRACTION = 0.6; // portion of visible width to jump per click
 
 export function TechMarquee({ technologies }: { technologies: TechnologyItem[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const pauseRef = useRef(() => {});
+  const scheduleResumeRef = useRef(() => {});
+  const [controlsVisible, setControlsVisible] = useState(false);
   const items = Array.from({ length: REPEAT }).flatMap(() => technologies);
 
   useLayoutEffect(() => {
+    const container = containerRef.current;
     const el = scrollerRef.current;
-    if (!el) return;
+    if (!container || !el) return;
 
     const copyWidth = el.scrollWidth / REPEAT;
     el.scrollLeft = copyWidth; // start in the middle copy so either drag direction has room
@@ -52,17 +59,19 @@ export function TechMarquee({ technologies }: { technologies: TechnologyItem[] }
 
     const pause = () => {
       paused = true;
-      el.classList.add("scrolling"); // reveals the scrollbar — see .tech-scrollbar in globals.css
+      setControlsVisible(true);
       if (resumeTimeout) clearTimeout(resumeTimeout);
     };
+    pauseRef.current = pause;
 
     const scheduleResume = () => {
       if (resumeTimeout) clearTimeout(resumeTimeout);
       resumeTimeout = setTimeout(() => {
         paused = false;
-        el.classList.remove("scrolling");
+        setControlsVisible(false);
       }, RESUME_DELAY);
     };
+    scheduleResumeRef.current = scheduleResume;
 
     // Browsers don't support click-drag scrolling out of the box (only
     // touch/trackpad do natively) — hand-roll it for mouse pointers only,
@@ -99,8 +108,11 @@ export function TechMarquee({ technologies }: { technologies: TechnologyItem[] }
     el.addEventListener("pointerup", handlePointerUp);
     el.addEventListener("pointercancel", handlePointerUp);
     el.addEventListener("wheel", handleWheel, { passive: true });
-    el.addEventListener("mouseenter", pause);
-    el.addEventListener("mouseleave", scheduleResume);
+    // Hover tracking lives on the whole container (not just the scroller) so
+    // moving the mouse onto the prev/next buttons — which sit outside the
+    // scroller's own bounds — doesn't count as "leaving" and hide them.
+    container.addEventListener("mouseenter", pause);
+    container.addEventListener("mouseleave", scheduleResume);
     // Belt-and-suspenders: pointerup isn't reliably synthesized from touch
     // on every browser, so a touch tap/drag could otherwise leave the
     // marquee paused forever. Native touch events always fire.
@@ -117,21 +129,51 @@ export function TechMarquee({ technologies }: { technologies: TechnologyItem[] }
       el.removeEventListener("pointerup", handlePointerUp);
       el.removeEventListener("pointercancel", handlePointerUp);
       el.removeEventListener("wheel", handleWheel);
-      el.removeEventListener("mouseenter", pause);
-      el.removeEventListener("mouseleave", scheduleResume);
+      container.removeEventListener("mouseenter", pause);
+      container.removeEventListener("mouseleave", scheduleResume);
       el.removeEventListener("touchstart", pause);
       el.removeEventListener("touchend", scheduleResume);
       el.removeEventListener("touchcancel", scheduleResume);
     };
   }, [technologies]);
 
+  const scrollByDirection = (direction: 1 | -1) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    pauseRef.current();
+    el.scrollBy({ left: direction * el.clientWidth * BUTTON_SCROLL_FRACTION, behavior: "smooth" });
+    scheduleResumeRef.current();
+  };
+
+  const controlsClass = controlsVisible
+    ? "opacity-100"
+    : "opacity-0 pointer-events-none";
+
   return (
-    <div className="relative overflow-hidden">
+    <div ref={containerRef} className="relative overflow-hidden">
       <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-r from-background to-transparent z-10" />
       <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-l from-background to-transparent z-10" />
+
+      <button
+        type="button"
+        aria-label="Previous technologies"
+        onClick={() => scrollByDirection(-1)}
+        className={`absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300 cursor-pointer ${controlsClass}`}
+      >
+        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+      </button>
+      <button
+        type="button"
+        aria-label="Next technologies"
+        onClick={() => scrollByDirection(1)}
+        className={`absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300 cursor-pointer ${controlsClass}`}
+      >
+        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+      </button>
+
       <div
         ref={scrollerRef}
-        className="flex gap-2 sm:gap-3 overflow-x-auto tech-scrollbar cursor-grab select-none"
+        className="flex gap-2 sm:gap-3 overflow-x-auto no-scrollbar cursor-grab select-none"
       >
         {items.map((tech, idx) => (
           <div

@@ -180,36 +180,17 @@
     box-shadow: 0 0 20px color-mix(in srgb, #26c4b8 20%, transparent);
   }
 
-  .tech-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
+  /* Dragging the native scrollbar thumb doesn't fire the pointer/touch
+     events the marquee listens for to pause its auto-scroll, so the two
+     fight each other. Hidden entirely — navigation is via prev/next
+     buttons and direct drag/swipe on the content instead. */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
-  /* Revealed on mouse hover (desktop) — touch devices don't trigger :hover
-     reliably, so active touch/drag also gets a `.scrolling` class toggled
-     in JS, see components/ui/tech-marquee.tsx. */
-  .tech-scrollbar:hover,
-  .tech-scrollbar.scrolling {
-    scrollbar-color: var(--color-primary) transparent;
-  }
-
-  .tech-scrollbar::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  .tech-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .tech-scrollbar::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 9999px;
-    transition: background-color 0.2s ease;
-  }
-
-  .tech-scrollbar:hover::-webkit-scrollbar-thumb,
-  .tech-scrollbar.scrolling::-webkit-scrollbar-thumb {
-    background-color: var(--color-primary);
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
