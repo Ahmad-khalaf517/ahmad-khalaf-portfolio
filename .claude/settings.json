@@ -21,7 +21,14 @@
       "Bash(timeout 30 bash -c 'until curl -sf http://localhost:3000/ >/dev/null 2>&1; do sleep 1; done')",
       "Bash(curl -s http://localhost:3000/ -o /tmp/page2.html -w \"HTTP %{http_code}\\\\n\")",
       "Bash(node verify2.mjs)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(node verify-scrollspy.mjs)",
+      "Bash(node verify-desktop-active.mjs)",
+      "Bash(node verify-timeline.mjs)",
+      "Bash(node verify-timeline2.mjs)",
+      "Bash(node verify-sync.mjs)",
+      "Bash(node verify-reverse.mjs)",
+      "Bash(node verify-resume-btn.mjs)"
     ]
   }
 }
