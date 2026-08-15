@@ -89,6 +89,16 @@
     }
   }
 
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 0.9;
+    }
+  }
+
   @keyframes marquee {
     0% {
       transform: translateX(0);
@@ -112,6 +122,10 @@
 
   .animate-float {
     animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 5s ease-in-out infinite;
   }
 
   .animate-marquee {

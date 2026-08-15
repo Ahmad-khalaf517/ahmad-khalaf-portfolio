@@ -129,9 +129,9 @@ export default function Hero({
             <div className="max-w-md mx-auto">
               <div
                 className="absolute inset-0
-              rounded-3xl bg-linear-to-br
+              rounded-xl bg-linear-to-br
               from-primary/30 via-transparent
-              to-primary/10 blur-2xl animate-pulse"
+              to-primary/10 blur-2xl animate-glow-pulse"
               />
               <div className="relative glass rounded-2xl p-2 glow-border">
                 <Image
@@ -188,7 +188,7 @@ export default function Hero({
                 >
                   <TechIcon
                     icon={tech.icon}
-                    className="w-6 h-6 opacity-60 group-hover/tech:opacity-100 transition-opacity"
+                    className="w-6 h-6 text-muted-foreground/50 group-hover/tech:text-primary transition-colors"
                   />
                   <span className="text-xl font-semibold text-muted-foreground/50 group-hover/tech:text-muted-foreground transition-colors">
                     {tech.name}
