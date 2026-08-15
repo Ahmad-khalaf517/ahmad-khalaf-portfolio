@@ -76,7 +76,7 @@ export default function Experience({ content }: { content: ExperienceContent }) 
   const { ref: timelineRef, progress } = useScrollFill<HTMLDivElement>();
 
   return (
-    <Section id="experience" className="py-32">
+    <Section id="experience">
       <div
         className="absolute top-1/2 left-1/4 w-96
        h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2"

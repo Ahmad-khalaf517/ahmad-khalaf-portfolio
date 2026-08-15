@@ -13,7 +13,7 @@ const highlightIcons: Record<AboutIconKey, typeof Code2> = {
 
 export default function AboutMe({ content }: { content: AboutContent }) {
   return (
-    <Section id="about" className="py-32">
+    <Section id="about">
       <SectionContent>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column */}

@@ -13,7 +13,7 @@ export default function Section({ children, ...props }: SectionProps) {
     <section
       {...props}
       ref={ref}
-      className={`relative overflow-hidden ${isInView ? "in-view" : ""} ${props.className || ""}`}
+      className={`relative overflow-hidden py-32 ${isInView ? "in-view" : ""} ${props.className || ""}`}
     >
       {children}
     </section>

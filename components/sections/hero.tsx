@@ -32,7 +32,7 @@ export default function Hero({
   return (
     <Section
       id="hero"
-      className="min-h-screen flex items-center"
+      className="min-h-screen flex items-center py-0!"
     >
       {/* Bg */}
       <div className="absolute inset-0">
