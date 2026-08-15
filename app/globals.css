@@ -99,15 +99,6 @@
     }
   }
 
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
   .animate-fade-in {
     animation: fade-in 0.8s ease-out both;
   }
@@ -126,10 +117,6 @@
 
   .animate-glow-pulse {
     animation: glow-pulse 5s ease-in-out infinite;
-  }
-
-  .animate-marquee {
-    animation: marquee 30s linear infinite;
   }
 
   .animation-delay-100 {
@@ -179,6 +166,37 @@
     box-shadow: 0 0 20px color-mix(in srgb, #26c4b8 20%, transparent);
   }
 
+  .tech-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  /* Revealed on mouse hover (desktop) — touch devices don't trigger :hover
+     reliably, so active touch/drag also gets a `.scrolling` class toggled
+     in JS, see components/ui/tech-marquee.tsx. */
+  .tech-scrollbar:hover,
+  .tech-scrollbar.scrolling {
+    scrollbar-color: var(--color-primary) transparent;
+  }
+
+  .tech-scrollbar::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .tech-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .tech-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease;
+  }
+
+  .tech-scrollbar:hover::-webkit-scrollbar-thumb,
+  .tech-scrollbar.scrolling::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+  }
 }
 
 @layer components {

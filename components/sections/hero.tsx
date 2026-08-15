@@ -6,7 +6,7 @@ import Linkedin from "@/assets/icons/linkedin";
 import Section from "../app/section";
 import SectionContent from "../app/section-content";
 import { CountUp } from "@/components/ui/count-up";
-import TechIcon from "@/assets/icons/tech-icon";
+import { TechMarquee } from "@/components/ui/tech-marquee";
 import type { HeroContent, SocialLink, TechnologyItem } from "@/lib/content/types";
 
 const socialIcons: Record<SocialLink["platform"], typeof Github> = {
@@ -171,32 +171,7 @@ export default function Hero({
           <p className="text-lg text-white mb-6 text-center">
             Technologies I work with
           </p>
-          <div className="relative overflow-hidden group/marquee">
-            <div
-              className="absolute left-0 top-0 bottom-0 w-32
-             bg-linear-to-r from-background to-transparent z-10"
-            />
-            <div
-              className="absolute right-0 top-0 bottom-0 w-32
-             bg-linear-to-l from-background to-transparent z-10"
-            />
-            <div className="flex animate-marquee group-hover/marquee:[animation-play-state:paused]">
-              {[...technologies, ...technologies].map((tech, idx) => (
-                <div
-                  key={idx}
-                  className="group/tech shrink-0 px-8 py-4 flex items-center gap-3"
-                >
-                  <TechIcon
-                    icon={tech.icon}
-                    className="w-6 h-6 text-muted-foreground/50 group-hover/tech:text-primary transition-colors"
-                  />
-                  <span className="text-xl font-semibold text-muted-foreground/50 group-hover/tech:text-muted-foreground transition-colors">
-                    {tech.name}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <TechMarquee technologies={technologies} />
         </div>
       </SectionContent>
 
