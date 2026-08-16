@@ -6,16 +6,17 @@ import SectionTitle from "../app/section-title";
 import { useScrollFill } from "@/hooks/useScrollFill";
 import type { ExperienceContent, ExperienceItem } from "@/lib/content/types";
 
-function TimelineRow({ exp, idx }: { exp: ExperienceItem; idx: number }) {
-  // Same continuous, position-based check the line itself uses (see
-  // hooks/useScrollFill.ts) rather than a one-shot IntersectionObserver —
-  // so scrolling back up above the row un-reveals it again instead of the
-  // reveal being permanent.
-  const { ref, progress: rowProgress } = useScrollFill<HTMLDivElement>();
-  const reached = rowProgress > 0;
-
+function TimelineRow({
+  exp,
+  idx,
+  reached,
+}: {
+  exp: ExperienceItem;
+  idx: number;
+  reached: boolean;
+}) {
   return (
-    <div ref={ref} className="relative grid md:grid-cols-2 gap-8">
+    <div className="relative grid md:grid-cols-2 gap-8">
       {/* Timeline Dot — pops in once the fill line reaches it */}
       <div
         className={`absolute left-0 md:left-1/2 top-0 w-3 h-3 bg-primary rounded-full -translate-x-1/2 ring-4 ring-background z-10 transition-all duration-500 ease-out ${
@@ -116,9 +117,18 @@ export default function Experience({ content }: { content: ExperienceContent }) 
 
           {/* Experience Items */}
           <div className="space-y-12">
-            {content.items.map((exp, idx) => (
-              <TimelineRow key={idx} exp={exp} idx={idx} />
-            ))}
+            {content.items.map((exp, idx) => {
+              const revealAt = idx / content.items.length;
+
+              return (
+                <TimelineRow
+                  key={idx}
+                  exp={exp}
+                  idx={idx}
+                  reached={progress > revealAt}
+                />
+              );
+            })}
           </div>
         </div>
       </SectionContent>

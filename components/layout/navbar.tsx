@@ -29,8 +29,8 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
             alt="Logo"
             width={100}
             height={100}
-            className="w-10 h-10"
             loading="eager"
+            className="w-10 h-10"
           />
         </a>
 

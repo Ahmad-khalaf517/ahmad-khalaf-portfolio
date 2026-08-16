@@ -1,40 +1,32 @@
-"use client";
+import type { CSSProperties } from "react";
 
-import { useEffect, useState } from "react";
-import { useInView } from "@/hooks/useInView";
+type CountUpStyle = CSSProperties & {
+  "--count-target": number;
+  "--count-duration": `${number}ms`;
+};
 
-export function CountUp({ value, duration = 1500 }: { value: string; duration?: number }) {
+export function CountUp({ value, duration = 700 }: { value: string; duration?: number }) {
   const match = value.match(/^(\d+)(.*)$/);
   const target = match ? parseInt(match[1], 10) : null;
   const suffix = match ? match[2] : "";
-  const { ref, isInView } = useInView<HTMLSpanElement>({ threshold: 0.5 });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView || target === null) return;
-
-    let start: number | null = null;
-    let raf: number;
-
-    const step = (timestamp: number) => {
-      if (start === null) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      setCount(Math.round(progress * target));
-      if (progress < 1) raf = requestAnimationFrame(step);
-    };
-
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [isInView, target, duration]);
 
   if (target === null) {
     return <span>{value}</span>;
   }
 
+  const style: CountUpStyle = {
+    "--count-target": target,
+    "--count-duration": `${duration}ms`,
+  };
+
   return (
-    <span ref={ref}>
-      {count}
-      {suffix}
+    <span
+      className="count-up"
+      data-suffix={suffix}
+      style={style}
+      aria-label={value}
+    >
+      <span className="sr-only">{value}</span>
     </span>
   );
 }

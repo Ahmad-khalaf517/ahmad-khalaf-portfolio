@@ -3,7 +3,6 @@ import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
 import Github from "@/assets/icons/github";
 import Linkedin from "@/assets/icons/linkedin";
-import Section from "../app/section";
 import SectionContent from "../app/section-content";
 import { CountUp } from "@/components/ui/count-up";
 import { TechMarquee } from "@/components/ui/tech-marquee";
@@ -30,15 +29,16 @@ export default function Hero({
   technologies: TechnologyItem[];
 }) {
   return (
-    <Section
+    <section
       id="hero"
-      className="min-h-screen flex items-center py-0!"
+      className="relative overflow-hidden min-h-screen flex items-center py-0"
     >
       {/* Bg */}
       <div className="absolute inset-0">
         <Image
           src="/hero-bg.jpg"
-          alt="Hero image"
+          alt=""
+          aria-hidden="true"
           className="w-full h-full object-cover opacity-40"
           fill
           preload
@@ -47,7 +47,7 @@ export default function Hero({
       </div>
 
       {/* Green Dots */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="hero-dots absolute inset-0 overflow-hidden pointer-events-none">
         {dots.map((dot) => (
           <div
             key={dot.id}
@@ -68,16 +68,16 @@ export default function Hero({
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-8">
-            <div className="animate-fade-in">
+            <div>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
-                <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                <span className="w-2 h-2 bg-primary rounded-full" />
                 {content.badgeText}
               </span>
             </div>
 
             {/* Headline */}
             <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight animate-fade-in animation-delay-100">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
                 {content.headlinePrefix}{" "}
                 <span className="text-primary glow-text">
                   {content.headlineHighlight}
@@ -89,14 +89,14 @@ export default function Hero({
                   {content.headlineAccent}
                 </span>
               </h1>
-              <p className="text-lg text-muted-foreground max-w-lg animate-fade-in animation-delay-200">
+              <p className="text-lg text-muted-foreground max-w-lg">
                 Hi, I&apos;m <span className="text-primary"> {content.name}</span>{" "}
                 — {content.subtext}
               </p>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4 animate-fade-in animation-delay-300">
+            <div className="flex flex-wrap gap-4">
               <a href={content.resumeUrl} target="_blank" rel="noopener noreferrer" download>
                 <AnimatedBorderButton>
                   <Download className="w-5 h-5" />
@@ -106,7 +106,7 @@ export default function Hero({
             </div>
 
             {/* Social Links */}
-            <div className="flex items-center gap-4 animate-fade-in animation-delay-400">
+            <div className="flex items-center gap-4">
               <span className="text-md text-muted-foreground">Follow me: </span>
               {content.socialLinks.map((social) => {
                 const Icon = socialIcons[social.platform];
@@ -125,14 +125,14 @@ export default function Hero({
             </div>
           </div>
           {/* Right Column - Profile Image */}
-          <div className="relative animate-fade-in animation-delay-300">
+          <div className="relative">
             {/* Profile Image */}
             <div className="max-w-md mx-auto">
               <div
                 className="absolute inset-0
               rounded-xl bg-linear-to-br
               from-primary/30 via-transparent
-              to-primary/10 blur-2xl animate-glow-pulse"
+              to-primary/10 blur-2xl"
               />
               <div className="relative glass rounded-2xl p-2 glow-border">
                 <Image
@@ -140,21 +140,22 @@ export default function Hero({
                   height={430}
                   src={content.profileImage}
                   alt={content.name}
+                  sizes="(min-width: 1024px) 430px, (min-width: 640px) 430px, calc(100vw - 64px)"
                   loading="eager"
                   className="w-full aspect-square object-cover rounded-2xl"
                 />
 
                 {/* Floating Badge */}
-                <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3 animate-float">
+                <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                    <div className="w-3 h-3 bg-green-500 rounded-full" />
                     <span className="text-sm font-medium">
                       {content.availabilityText}
                     </span>
                   </div>
                 </div>
                 {/* Stats Badge */}
-                <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3 animate-float animation-delay-500">
+                <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3">
                   <div className="text-2xl font-bold text-primary">
                     <CountUp value={content.yearsExperience} />
                   </div>
@@ -168,13 +169,13 @@ export default function Hero({
         </div>
 
         {/* Skills Section */}
-        <div className="mt-20 animate-fade-in animation-delay-600">
+        <div className="mt-20">
           <p className="text-lg text-white mb-6 text-center">
             Technologies I work with
           </p>
           <TechMarquee technologies={technologies} />
         </div>
       </SectionContent>
-    </Section>
+    </section>
   );
 }

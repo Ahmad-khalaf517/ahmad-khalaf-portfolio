@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SubmitEventHandler, useState } from "react";
-import emailjs from "@emailjs/browser";
 import SectionTitle from "../app/section-title";
 import SectionContent from "../app/section-content";
 import Section from "../app/section";
@@ -60,6 +59,7 @@ export default function Contact({ content }: { content: ContactContent }) {
         );
       }
 
+      const { default: emailjs } = await import("@emailjs/browser");
       await emailjs.send(
         serviceId,
         templateId,

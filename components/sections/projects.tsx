@@ -45,6 +45,7 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                   alt={project.title}
                   width={600}
                   height={400}
+                  sizes="(min-width: 1280px) 600px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 48px)"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div

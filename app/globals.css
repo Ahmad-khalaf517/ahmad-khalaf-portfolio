@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@property --count-value {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
 @theme {
   --color-background: #0f1418;
   --color-foreground: #f0f2f5;
@@ -37,11 +43,11 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-geist-sans), sans-serif;
   }
 
   .font-serif {
-    font-family: "Playfair Display", serif;
+    font-family: Georgia, "Times New Roman", serif;
   }
 }
 
@@ -99,6 +105,30 @@
     }
   }
 
+  @keyframes count-up {
+    from {
+      --count-value: 0;
+    }
+    to {
+      --count-value: var(--count-target);
+    }
+  }
+
+  .count-up {
+    --count-value: var(--count-target);
+    counter-reset: years-experience var(--count-value);
+  }
+
+  .count-up::after {
+    content: counter(years-experience) attr(data-suffix);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .count-up {
+      animation: count-up var(--count-duration) ease-out both;
+    }
+  }
+
   @keyframes card-glow-pulse {
     0%,
     100% {
@@ -118,6 +148,14 @@
      `.in-view` — see hooks/useInView.ts. Scoped to `section` so it never
      touches unrelated `.animate-fade-in` uses (mobile nav menu, toasts). */
   section:not(.in-view) .animate-fade-in {
+    animation-play-state: paused;
+  }
+
+  section:not(.in-view) .animate-float,
+  section:not(.in-view) .animate-glow-pulse,
+  section:not(.in-view) .animate-card-glow,
+  section:not(.in-view) .animate-pulse,
+  section:not(.in-view) .animate-ping {
     animation-play-state: paused;
   }
 
@@ -190,6 +228,33 @@
   }
 
   .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Let the browser defer layout work for sections still below the viewport. */
+section:not(#hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
+}
+
+@media (max-width: 639px) {
+  .hero-dots > :not(:nth-child(3n + 1)) {
     display: none;
   }
 }

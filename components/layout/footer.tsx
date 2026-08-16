@@ -36,7 +36,6 @@ export const Footer = () => {
                 width={100}
                 height={100}
                 className="w-10 h-10"
-                loading="eager"
               />
             </a>
             <p className="text-sm text-muted-foreground mt-2">
