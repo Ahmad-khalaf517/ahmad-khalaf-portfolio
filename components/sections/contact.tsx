@@ -18,6 +18,7 @@ import {
 import SectionTitle from "../app/section-title";
 import SectionContent from "../app/section-content";
 import Section from "../app/section";
+import { submitContactForm } from "@/lib/actions/contact";
 import type { ContactContent, ContactIconKey } from "@/lib/content/types";
 
 type ContactIconComponent = ComponentType<SVGProps<SVGSVGElement>>;
@@ -59,51 +60,26 @@ export default function Contact({ content }: { content: ContactContent }) {
     e.preventDefault();
 
     if (website) {
-      // Bot filled the hidden field — silently drop without hitting EmailJS.
+      // Bot filled the hidden field — silently drop without a round trip.
+      // The server action re-checks this too, since a bot could otherwise
+      // call it directly and skip the client entirely.
       setFormData({ name: "", email: "", message: "" });
       return;
     }
 
     setIsLoading(true);
     setSubmitStatus({ type: null, message: "" });
-    try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error(
-          "EmailJS configuration is missing. Please check your environment variables.",
-        );
-      }
+    const result = await submitContactForm({ ...formData, website });
 
-      const { default: emailjs } = await import("@emailjs/browser");
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        },
-        publicKey,
-      );
-
-      setSubmitStatus({
-        type: "success",
-        message: "Message sent successfully! I'll get back to you soon.",
-      });
+    setSubmitStatus({
+      type: result.success ? "success" : "error",
+      message: result.message,
+    });
+    if (result.success) {
       setFormData({ name: "", email: "", message: "" });
-    } catch (err: unknown) {
-      console.error("EmailJS error:", err);
-      setSubmitStatus({
-        type: "error",
-        message:
-          (err as { text?: string }).text || "Failed to send message. Please try again later.",
-      });
-    } finally {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
   return (
     <Section id="contact">

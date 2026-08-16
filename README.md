@@ -90,12 +90,17 @@ pnpm install
 
 ### Environment Variables
 
-Create a `.env.local` file in the project root and add the following EmailJS keys:
+Create a `.env.local` file in the project root and add the following EmailJS keys.
+The contact form is sent from a Server Action (`lib/actions/contact.ts`), so none of
+these are exposed to the browser — no `NEXT_PUBLIC_` prefix needed. `EMAILJS_PRIVATE_KEY`
+is the "Private Key" / Access Token from your EmailJS account's API Keys settings, required
+for server-side (non-browser) requests.
 
 ```env
-NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
-NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
-NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+EMAILJS_SERVICE_ID=your_service_id
+EMAILJS_TEMPLATE_ID=your_template_id
+EMAILJS_PUBLIC_KEY=your_public_key
+EMAILJS_PRIVATE_KEY=your_private_key
 ```
 
 ### Run the Development Server
