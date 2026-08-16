@@ -153,18 +153,25 @@ export default function Hero({
                 />
 
                 {/* Floating Badge */}
-                <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3">
+                <div className="hero-availability-badge absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-green-500 rounded-full" />
+                    <span className="relative flex size-3 shrink-0" aria-hidden="true">
+                      <span className="availability-ping absolute inset-0 rounded-full bg-green-400" />
+                      <span className="relative size-3 rounded-full bg-green-500" />
+                    </span>
                     <span className="text-sm font-medium">
                       {content.availabilityText}
                     </span>
                   </div>
                 </div>
                 {/* Stats Badge */}
-                <div className="absolute -top-4 -left-4 glass rounded-xl px-4 py-3">
+                <div className="hero-stat-badge absolute -top-4 -left-4 glass rounded-xl px-4 py-3">
                   <div className="text-2xl font-bold text-primary">
-                    <CountUp value={content.yearsExperience} />
+                    <CountUp
+                      value={content.yearsExperience}
+                      duration={900}
+                      delay={450}
+                    />
                   </div>
                   <div className="text-xs text-muted-foreground">
                     {content.yearsLabel}
@@ -177,9 +184,19 @@ export default function Hero({
 
         {/* Skills Section */}
         <div className="mt-20">
-          <p className="text-lg text-white mb-6 text-center">
-            Technologies I work with
-          </p>
+          <div className="mb-6 flex items-center justify-center gap-3 sm:gap-4">
+            <span
+              aria-hidden="true"
+              className="h-px w-8 sm:w-14 bg-linear-to-r from-transparent to-primary/60"
+            />
+            <p className="text-center text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <span className="text-primary">Technologies</span> I work with
+            </p>
+            <span
+              aria-hidden="true"
+              className="h-px w-8 sm:w-14 bg-linear-to-l from-transparent to-primary/60"
+            />
+          </div>
           <TechMarquee technologies={technologies} />
         </div>
       </SectionContent>

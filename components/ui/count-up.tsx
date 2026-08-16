@@ -3,9 +3,18 @@ import type { CSSProperties } from "react";
 type CountUpStyle = CSSProperties & {
   "--count-target": number;
   "--count-duration": `${number}ms`;
+  "--count-delay": `${number}ms`;
 };
 
-export function CountUp({ value, duration = 700 }: { value: string; duration?: number }) {
+export function CountUp({
+  value,
+  duration = 700,
+  delay = 0,
+}: {
+  value: string;
+  duration?: number;
+  delay?: number;
+}) {
   const match = value.match(/^(\d+)(.*)$/);
   const target = match ? parseInt(match[1], 10) : null;
   const suffix = match ? match[2] : "";
@@ -17,6 +26,7 @@ export function CountUp({ value, duration = 700 }: { value: string; duration?: n
   const style: CountUpStyle = {
     "--count-target": target,
     "--count-duration": `${duration}ms`,
+    "--count-delay": `${delay}ms`,
   };
 
   return (

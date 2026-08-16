@@ -130,7 +130,55 @@
 
   @media (prefers-reduced-motion: no-preference) {
     .count-up {
-      animation: count-up var(--count-duration) ease-out both;
+      animation: count-up var(--count-duration) ease-out var(--count-delay) both;
+    }
+  }
+
+  @keyframes hero-stat-enter {
+    from {
+      opacity: 0;
+      transform: translate3d(-12px, 10px, 0) scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes hero-availability-enter {
+    from {
+      opacity: 0;
+      transform: translate3d(12px, 10px, 0) scale(0.94);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes availability-ping {
+    0% {
+      opacity: 0.65;
+      transform: scale(0.8);
+    }
+    70%,
+    100% {
+      opacity: 0;
+      transform: scale(2.2);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-stat-badge {
+      animation: hero-stat-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) 250ms both;
+    }
+
+    .hero-availability-badge {
+      animation: hero-availability-enter 650ms cubic-bezier(0.22, 1, 0.36, 1) 500ms both;
+    }
+
+    .availability-ping {
+      animation: availability-ping 2.4s cubic-bezier(0, 0, 0.2, 1) 1.2s infinite;
     }
   }
 
