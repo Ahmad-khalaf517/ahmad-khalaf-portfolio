@@ -31,7 +31,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <Header resumeUrl={hero.resumeUrl} />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Hero content={hero} technologies={technologies} />
         <About content={about} />
         <Experience content={experience} />

@@ -29,7 +29,7 @@ export const Footer = () => {
         <div className="flex flex-col flex-wrap md:flex-row items-center justify-between gap-8">
           {/* Logo & Copyright */}
           <div className="text-center md:text-left">
-            <a href="#">
+            <a href="#" aria-label="Back to top" className="inline-flex p-1 -m-1 rounded-xl">
               <Image
                 src="/logo.svg"
                 alt="Logo"
@@ -49,7 +49,7 @@ export const Footer = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
               </a>
@@ -64,7 +64,7 @@ export const Footer = () => {
                 href={social.href}
                 aria-label={social.label}
                 target="_blank"
-                className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
+                className="min-h-11 min-w-11 inline-flex items-center justify-center rounded-full glass hover:bg-primary/10 hover:text-primary transition-all"
               >
                 <social.icon className="w-5 h-5" />
               </a>

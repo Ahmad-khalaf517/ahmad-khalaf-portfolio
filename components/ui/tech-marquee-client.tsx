@@ -198,7 +198,7 @@ export function TechMarqueeClient({ children }: { children: ReactNode }) {
         type="button"
         aria-label="Previous technologies"
         onClick={() => scrollByDirection(-1)}
-        className={`absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300 cursor-pointer ${controlsClass}`}
+        className={`absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20 min-h-11 min-w-11 inline-flex items-center justify-center rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300 cursor-pointer ${controlsClass}`}
       >
         <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>
@@ -206,7 +206,7 @@ export function TechMarqueeClient({ children }: { children: ReactNode }) {
         type="button"
         aria-label="Next technologies"
         onClick={() => scrollByDirection(1)}
-        className={`absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300 cursor-pointer ${controlsClass}`}
+        className={`absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20 min-h-11 min-w-11 inline-flex items-center justify-center rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300 cursor-pointer ${controlsClass}`}
       >
         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>

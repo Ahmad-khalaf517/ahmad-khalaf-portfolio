@@ -5,10 +5,18 @@ interface ResumeButtonGroupProps {
   className?: string;
 }
 
+const resumeActionClass = `relative flex min-w-11 items-center justify-center px-3 py-2
+  border-l border-primary-foreground/20 transition-colors
+  hover:bg-primary-foreground/15 active:bg-primary-foreground/25
+  focus-visible:z-10 focus-visible:outline-none focus-visible:bg-primary-foreground/15
+  focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-foreground/80`;
+
 export function ResumeButtonGroup({ resumeUrl, className = "" }: ResumeButtonGroupProps) {
   return (
     <div
-      className={`inline-flex items-stretch rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 overflow-hidden ${className}`}
+      role="group"
+      aria-label="Resume actions"
+      className={`inline-flex min-h-11 items-stretch rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:shadow-primary/35 transition-shadow overflow-hidden ${className}`}
     >
       <span className="flex flex-1 items-center justify-center pl-4 pr-3 py-2 text-sm font-medium select-none">
         Resume
@@ -19,18 +27,18 @@ export function ResumeButtonGroup({ resumeUrl, className = "" }: ResumeButtonGro
         rel="noopener noreferrer"
         title="View resume"
         aria-label="View resume"
-        className="flex items-center px-3 py-2 border-l border-primary-foreground/20 hover:bg-primary-foreground/15 transition-colors"
+        className={resumeActionClass}
       >
-        <Eye className="w-4 h-4" />
+        <Eye className="size-[18px]" aria-hidden="true" />
       </a>
       <a
         href={resumeUrl}
         download
         title="Download resume"
         aria-label="Download resume"
-        className="flex items-center px-3 py-2 border-l border-primary-foreground/20 hover:bg-primary-foreground/15 transition-colors"
+        className={resumeActionClass}
       >
-        <Download className="w-4 h-4" />
+        <Download className="size-[18px]" aria-hidden="true" />
       </a>
     </div>
   );

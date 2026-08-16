@@ -19,7 +19,7 @@
   --color-secondary-foreground: #20b2a6;
 
   --color-muted: #252e37;
-  --color-muted-foreground: #7a8491;
+  --color-muted-foreground: #929ca7;
 
   --color-border: #242b32;
 
@@ -46,6 +46,11 @@
     font-family: var(--font-geist-sans), sans-serif;
   }
 
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
   .font-serif {
     font-family: Georgia, "Times New Roman", serif;
   }
@@ -56,7 +61,7 @@
     from {
       opacity: 0;
       transform: translateY(20px);
-      filter: blur(10px);
+      filter: blur(4px);
     }
 
     to {
@@ -141,6 +146,52 @@
 
   .animate-fade-in {
     animation: fade-in 0.8s ease-out both;
+  }
+
+  @keyframes cta-sheen {
+    0%,
+    70%,
+    100% {
+      transform: translateX(-180%) skewX(-18deg);
+    }
+    88% {
+      transform: translateX(260%) skewX(-18deg);
+    }
+  }
+
+  .hero-primary-cta {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    min-height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    padding-inline: 1.75rem;
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+    font-size: 1rem;
+    font-weight: 650;
+    box-shadow: 0 12px 35px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+  }
+
+  .hero-primary-cta::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    z-index: -1;
+    width: 35%;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 32%), transparent);
+    animation: cta-sheen 5s ease-in-out infinite;
+  }
+
+  .hero-primary-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 42px color-mix(in srgb, var(--color-primary) 30%, transparent);
   }
 
   /* Sections stay paused at the fade-in's initial frame (opacity: 0) until
@@ -247,10 +298,38 @@
   }
 }
 
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  border-radius: 0.75rem;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  padding: 0.75rem 1rem;
+  font-weight: 650;
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* Let the browser defer layout work for sections still below the viewport. */
 section:not(#hero) {
   content-visibility: auto;
   contain-intrinsic-size: auto 1000px;
+}
+
+/* Hash navigation needs the real heights of every preceding section. Reveal
+   them after an in-page link is used while retaining the initial-load win. */
+html:has(:target) section:not(#hero) {
+  content-visibility: visible;
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
 }
 
 @media (max-width: 639px) {

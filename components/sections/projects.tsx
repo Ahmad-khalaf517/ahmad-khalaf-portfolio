@@ -46,7 +46,7 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                   width={600}
                   height={400}
                   sizes="(min-width: 1280px) 600px, (min-width: 768px) calc(50vw - 48px), calc(100vw - 48px)"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-focus-within:scale-110"
                 />
                 <div
                   className="absolute inset-0
@@ -54,13 +54,14 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                  to-transparent opacity-60"
                 />
                 {/* Overlay Links — always visible on mobile (no hover there), hover-revealed on desktop */}
-                <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 transition-opacity duration-300">
                  {project.link && (
                    <a
                     href={project.link}
                     target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={`View ${project.title} live`}
-                    className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
+                    className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all"
                   >
                     <ArrowUpRight className="w-5 h-5" />
                   </a>
@@ -68,8 +69,9 @@ export default function Projects({ content }: { content: ProjectsContent }) {
                   <a
                     href={project.github}
                     target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={`View ${project.title} source on GitHub`}
-                    className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground transition-all"
+                    className="p-3 rounded-full glass hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:bg-primary focus-visible:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-card transition-all"
                   >
                     <Github className="w-5 h-5" />
                   </a>
@@ -79,14 +81,15 @@ export default function Projects({ content }: { content: ProjectsContent }) {
               {/* Content */}
               <div className="p-6 space-y-4">
                 <div className="flex items-start justify-between">
-                  <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-semibold group-hover:text-primary group-focus-within:text-primary transition-colors">
                     {project.title}
                   </h3>
                   <ArrowUpRight
                     className="w-5 h-5
-                  text-muted-foreground group-hover:text-primary
+                  text-muted-foreground group-hover:text-primary group-focus-within:text-primary
                    group-hover:translate-x-1
-                   group-hover:-translate-y-1 transition-all"
+                   group-hover:-translate-y-1 group-focus-within:translate-x-1
+                   group-focus-within:-translate-y-1 transition-all"
                   />
                 </div>
                 <p className="text-muted-foreground text-sm">

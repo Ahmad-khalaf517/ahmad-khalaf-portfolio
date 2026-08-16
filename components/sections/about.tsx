@@ -48,11 +48,11 @@ export default function AboutMe({ content }: { content: AboutContent }) {
               return (
                 <div
                   key={idx}
-                  className="glass p-6 rounded-2xl animate-fade-in"
+                  className="glass p-6 rounded-2xl animate-fade-in group transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_16px_45px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                   style={{ animationDelay: `${(idx + 1) * 100}ms` }}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 hover:bg-primary/20">
-                    <Icon className="w-6 h-6 text-primary" />
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 transition-all duration-300 group-hover:bg-primary/20 group-hover:scale-105">
+                    <Icon className="w-6 h-6 text-primary transition-transform duration-300 group-hover:-rotate-3" />
                   </div>
                   <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">

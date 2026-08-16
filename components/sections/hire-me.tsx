@@ -23,7 +23,7 @@ export default function WhyHireMe({ content }: { content: HireMeContent }) {
       id="hire-me"
       className="relative py-16! md:py-24! border-t border-border"
     >
-      <SectionContent className="space-y-16 relative z-10">
+      <SectionContent className="space-y-10 md:space-y-16 relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 text-(--color-primary) font-semibold text-xs uppercase tracking-widest mb-3 bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] px-3 py-1 rounded-full border border-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]">
@@ -42,17 +42,18 @@ export default function WhyHireMe({ content }: { content: HireMeContent }) {
         </div>
 
         {/* 2x2 Grid Layout for Capabilities */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 animate-fade-in animation-delay-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {content.values.map((item, index) => {
             const Icon = valueIcons[item.icon];
             return (
               <div
                 key={index}
-                className="glass p-6 md:p-8 rounded-(--radius) border border-border group transition-all duration-300 hover:border-(--color-primary)/40 hover:-translate-y-0.5 shadow-sm hover:shadow-md"
+                className="glass p-6 md:p-8 rounded-(--radius) border border-border group animate-fade-in transition-all duration-300 hover:border-(--color-primary)/40 hover:-translate-y-1 shadow-sm hover:shadow-[0_16px_45px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                style={{ animationDelay: `${150 + index * 80}ms` }}
               >
                 <div className="flex gap-4 items-start">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary border border-border group-hover:border-(--color-primary)/30 transition-colors duration-300">
-                    <Icon className="h-5 w-5 text-(--color-primary)" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary border border-border group-hover:border-(--color-primary)/30 group-hover:bg-primary/10 transition-all duration-300">
+                    <Icon className="h-5 w-5 text-(--color-primary) transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3" />
                   </div>
                   <div className="space-y-2">
                     <h3 className="text-lg font-semibold tracking-tight text-foreground">
@@ -83,7 +84,7 @@ export default function WhyHireMe({ content }: { content: HireMeContent }) {
             className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-(--color-primary) text-primary-foreground text-sm font-semibold tracking-wide transition-all duration-300 hover:opacity-90 shadow-[0_0_15px_color-mix(in_srgb,var(--color-primary)_30%,transparent)] group"
           >
             {content.ctaLabel}
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="size-5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
       </SectionContent>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { ResumeButtonGroup } from "@/components/ui/resume-button-group";
@@ -20,10 +20,21 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const activeSection = useActiveSection(sectionIds);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false);
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [isMobileMenuOpen]);
+
   return (
     <>
       <nav className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#">
+        <a href="#" aria-label="Back to top" className="inline-flex p-1 -m-1 rounded-xl">
           <Image
             src="/logo.svg"
             alt="Logo"
@@ -35,7 +46,7 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
         </a>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-1">
           <ul className="glass rounded-full px-2 py-1 flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.slice(1);
@@ -59,16 +70,17 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
         </div>
 
         {/* CTA Button */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <ResumeButtonGroup resumeUrl={resumeUrl} />
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-foreground cursor-pointer"
+          className="lg:hidden min-h-11 min-w-11 inline-flex items-center justify-center rounded-xl text-foreground hover:bg-surface transition-colors cursor-pointer"
           onClick={() => setIsMobileMenuOpen((prev) => !prev)}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-navigation"
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -76,8 +88,11 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden glass-strong animate-fade-in">
-          <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
+        <div
+          id="mobile-navigation"
+          className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl animate-fade-in shadow-2xl shadow-black/25"
+        >
+          <div className="container mx-auto px-6 py-5 flex flex-col gap-2">
             {navLinks.map((link, index) => {
               const isActive = activeSection === link.href.slice(1);
               return (
@@ -86,10 +101,10 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
                   key={index}
                   onClick={() => setIsMobileMenuOpen(false)}
                   aria-current={isActive ? "true" : undefined}
-                  className={`text-lg py-2 transition-colors ${
+                  className={`text-base min-h-11 px-4 rounded-xl inline-flex items-center transition-colors ${
                     isActive
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-surface"
                   }`}
                 >
                   {link.label}

@@ -33,7 +33,7 @@ function TimelineRow({
         className={`pl-8 md:pl-0 transition-all duration-700 ease-out ${
           reached ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
         } ${
-          idx % 2 === 0 ? "md:pr-16 md:text-right" : "md:col-start-2 md:pl-16"
+          idx % 2 === 0 ? "md:pr-16" : "md:col-start-2 md:pl-16"
         }`}
       >
         <div
@@ -54,9 +54,7 @@ function TimelineRow({
           <p className="text-muted-foreground">{exp.company}</p>
           <p className="text-sm text-muted-foreground mt-4">{exp.description}</p>
           <div
-            className={`flex flex-wrap gap-2 mt-4 ${
-              idx % 2 === 0 ? "md:justify-end" : ""
-            }`}
+            className={`flex flex-wrap gap-2 mt-4`}
           >
             {exp.technologies.map((tech, techIdx) => (
               <span

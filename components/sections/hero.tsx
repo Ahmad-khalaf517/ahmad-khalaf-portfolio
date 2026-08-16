@@ -1,6 +1,6 @@
-import { Download } from "lucide-react";
-import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
+import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
+import { AnimatedBorderLink } from "@/components/ui/animated-border-button";
 import Github from "@/assets/icons/github";
 import Linkedin from "@/assets/icons/linkedin";
 import SectionContent from "../app/section-content";
@@ -97,12 +97,19 @@ export default function Hero({
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4">
-              <a href={content.resumeUrl} target="_blank" rel="noopener noreferrer" download>
-                <AnimatedBorderButton>
-                  <Download className="w-5 h-5" />
-                  Download CV
-                </AnimatedBorderButton>
+              <a href="#projects" className="hero-primary-cta group">
+                View Projects
+                <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
+              <AnimatedBorderLink
+                href={content.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                <Download className="w-5 h-5" />
+                Download CV
+              </AnimatedBorderLink>
             </div>
 
             {/* Social Links */}
@@ -116,7 +123,7 @@ export default function Hero({
                     href={social.href}
                     target="_blank"
                     aria-label={social.platform}
-                    className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
+                    className="min-h-11 min-w-11 inline-flex items-center justify-center rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
                   >
                     <Icon className="w-5 h-5" />
                   </a>
