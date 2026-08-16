@@ -2,23 +2,41 @@
 
 import {
   Mail,
-  Phone,
   MapPin,
   Send,
   CheckCircle,
   AlertCircle,
 } from "lucide-react";
+import { siWhatsapp } from "simple-icons";
 import { Button } from "@/components/ui/button";
-import { SubmitEventHandler, useState } from "react";
+import {
+  type ComponentType,
+  type SVGProps,
+  type SubmitEventHandler,
+  useState,
+} from "react";
 import SectionTitle from "../app/section-title";
 import SectionContent from "../app/section-content";
 import Section from "../app/section";
 import type { ContactContent, ContactIconKey } from "@/lib/content/types";
 
-const contactIcons: Record<ContactIconKey, typeof Mail> = {
-  mail: Mail,
-  phone: Phone,
-  "map-pin": MapPin,
+type ContactIconComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+const contactIcons: Record<ContactIconKey, ContactIconComponent> = {
+  mail: Mail as ContactIconComponent,
+  whatsapp: (({ className, ...props }: SVGProps<SVGSVGElement>) => (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      role="img"
+      aria-label="WhatsApp"
+      className={className}
+      {...props}
+    >
+      <path d={siWhatsapp.path} />
+    </svg>
+  )) as ContactIconComponent,
+  "map-pin": MapPin as ContactIconComponent,
 };
 
 export default function Contact({ content }: { content: ContactContent }) {
@@ -121,6 +139,7 @@ export default function Contact({ content }: { content: ContactContent }) {
                 </label>
                 <input
                   id="name"
+                  autoComplete="name"
                   type="text"
                   required
                   placeholder="Your name..."
@@ -140,6 +159,9 @@ export default function Contact({ content }: { content: ContactContent }) {
                   Email
                 </label>
                 <input
+                  id="email"
+                  autoComplete="email"
+                  type="email"
                   required
                   placeholder="your@email.com"
                   value={formData.email}
@@ -158,6 +180,7 @@ export default function Contact({ content }: { content: ContactContent }) {
                   Message
                 </label>
                 <textarea
+                  id="message"
                   rows={5}
                   required
                   value={formData.message}
@@ -232,6 +255,7 @@ export default function Contact({ content }: { content: ContactContent }) {
                     <a
                       key={i}
                       href={item.href}
+                      target="_blank"
                       className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface transition-colors group border border-border/50"
                     >
                       <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">

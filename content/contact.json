@@ -10,19 +10,19 @@
       "icon": "mail",
       "label": "Email",
       "value": "ahmadkhalaf517@gmail.com",
-      "href": "mailto:ahmadkhalaf517@gmail.com"
+      "href": "mailto:ahmadkhalaf517@gmail.com?subject=Project%20Inquiry&body=Hi%20Ahmad%2C%0A%0AI'm%20reaching%20out%20about%20a%20project%20or%20opportunity.%0A%0AThanks%2C%0A"
     },
     {
-      "icon": "phone",
-      "label": "Phone",
+      "icon": "whatsapp",
+      "label": "WhatsApp",
       "value": "+961 76 661 986",
-      "href": "tel:+96176661986"
+      "href": "https://wa.me/96176661986"
     },
     {
       "icon": "map-pin",
       "label": "Location",
       "value": "Lebanon, Beirut",
-      "href": "#"
+      "href": "https://maps.app.goo.gl/DF3RVCYGJ7PnSfLV6"
     }
   ],
   "availabilityTitle": "Currently Available",

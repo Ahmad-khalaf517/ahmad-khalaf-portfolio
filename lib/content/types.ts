@@ -111,7 +111,7 @@ export interface HireMeContent {
   ctaHref: string;
 }
 
-export type ContactIconKey = "mail" | "phone" | "map-pin";
+export type ContactIconKey = "mail" | "whatsapp" | "map-pin";
 
 export interface ContactInfoItem {
   icon: ContactIconKey;
