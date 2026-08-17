@@ -59,9 +59,8 @@ export default function Hero({
         {dots.map((dot) => (
           <div
             key={dot.id}
-            className="absolute w-1.5 h-1.5 rounded-full opacity-60"
+            className="absolute w-1.5 h-1.5 rounded-full bg-primary opacity-60"
             style={{
-              backgroundColor: "#20B2A6",
               left: `${dot.left}%`,
               top: `${dot.top}%`,
               animation: `slow-drift ${dot.animationDuration}s ease-in-out infinite`,
@@ -93,7 +92,7 @@ export default function Hero({
                 <br />
                 {content.headlineMiddle}
                 <br />
-                <span className="font-serif italic font-normal text-white">
+                <span className="font-serif italic font-normal text-[var(--color-heading-accent)]">
                   {content.headlineAccent}
                 </span>
               </h1>

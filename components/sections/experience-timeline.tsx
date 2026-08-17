@@ -74,7 +74,7 @@ export function ExperienceTimeline({ items }: { items: ExperienceItem[] }) {
   return (
     <div ref={timelineRef} className="relative">
       <div
-        className="absolute left-0 md:left-1/2 top-0 w-0.5 md:-translate-x-1/2 origin-top rounded-full bg-linear-to-b from-primary via-primary to-primary/60 shadow-[0_0_10px_rgba(32,178,166,0.8)]"
+        className="absolute left-0 md:left-1/2 top-0 w-0.5 md:-translate-x-1/2 origin-top rounded-full bg-linear-to-b from-primary via-primary to-primary/60 shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary)_80%,transparent)]"
         style={{ height: "100%", transform: `scaleY(${progress})` }}
       />
 

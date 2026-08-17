@@ -24,7 +24,7 @@ Every step records:
 | 3 | Configurable section registry and portfolio renderer | Completed |
 | 4 | Data-driven navigation, footer, metadata, and resume | Completed |
 | 5 | Public/client boundary cleanup and reusable preview rendering | Completed |
-| 6 | Theme-token boundary and shared presentation primitives | Planned |
+| 6 | Theme-token boundary and shared presentation primitives | Completed |
 | 7 | Contact action hardening | Planned |
 | 8 | Dead-code cleanup, documentation, and full regression checks | Planned |
 
@@ -286,3 +286,66 @@ header also registered two independent listeners for the same scroll event.
 
 - Authenticated preview routing belongs to the dashboard authentication phase. This refactor
   establishes the shared renderer it will call without exposing draft data publicly.
+
+## Step 6 — Scoped theme tokens and presentation primitives
+
+### Why
+
+Theme data was validated in the published snapshot but not applied to rendering. In addition,
+three section headers repeated the same presentation markup, making future theme changes easy
+to apply inconsistently.
+
+### Changes
+
+- Expanded the explicit theme contract to cover every current semantic color rather than
+  storing arbitrary CSS.
+- Added a pure mapper from validated theme tokens to scoped CSS variables, font, radius, and
+  density values.
+- Applied each portfolio theme at the shared published-page boundary.
+- Made section and content spacing consume density variables while preserving the current
+  comfortable values.
+- Added a minimal-motion preset in addition to the existing operating-system reduced-motion
+  protection.
+- Replaced remaining hard-coded accent colors in components with semantic theme variables.
+- Added a shared `SectionHeading` presentation primitive for Experience, Projects, and
+  Contact.
+- Added theme-mapping tests.
+
+### Files
+
+- `lib/portfolio/schemas.ts`
+- `lib/portfolio/theme.ts`
+- `lib/portfolio/theme.test.ts`
+- `lib/data/local-content-adapter.ts`
+- `components/portfolio/published-portfolio-page.tsx`
+- `components/app/section.tsx`
+- `components/app/section-content.tsx`
+- `components/app/section-heading.tsx`
+- `components/sections/about.tsx`
+- `components/sections/contact.tsx`
+- `components/sections/experience.tsx`
+- `components/sections/experience-timeline.tsx`
+- `components/sections/hero.tsx`
+- `components/sections/projects.tsx`
+- `app/globals.css`
+
+### Verification
+
+- `pnpm test` — 20 tests passed across six suites.
+- `pnpm typecheck` — passed.
+- `pnpm lint` — passed.
+- `pnpm build` — passed with scoped theme variables compiled by Tailwind.
+
+### Decisions
+
+- Theme values are an allowlisted schema of semantic tokens and presets. Snapshots cannot
+  contain arbitrary CSS.
+- Themes are scoped to the portfolio wrapper, which prevents future dashboard styles from
+  inheriting portfolio appearance settings.
+- The local theme uses the exact current colors and comfortable spacing to avoid a visual
+  redesign during this architectural step.
+
+### Deferred
+
+- Dashboard controls, contrast warnings, and preset selection belong to the appearance-editor
+  phase. This step only establishes the validated rendering contract.

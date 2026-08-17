@@ -29,7 +29,7 @@ export default function AboutMe({
 
             <h2 className="text-4xl md:text-5xl font-bold leading-tight mt-8 animate-fade-in animation-delay-100 text-secondary-foreground">
               {content.heading}
-              <span className="font-serif italic font-normal text-white">
+              <span className="font-serif italic font-normal text-[var(--color-heading-accent)]">
                 {" "}
                 {content.headingAccent}
               </span>

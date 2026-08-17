@@ -13,6 +13,7 @@
   --color-card: #141a1f;
 
   --color-primary: #20b2a6;
+  --color-interactive-accent: #26c4b8;
   --color-primary-foreground: #0f1418;
 
   --color-secondary: #1f2830;
@@ -26,6 +27,7 @@
   --radius: 0.75rem;
 
   --color-highlight: #f5a623;
+  --color-heading-accent: #ffffff;
   --color-surface: #1a2329;
 }
 
@@ -312,9 +314,9 @@
   }
 
   .animated-border:hover {
-    background-color: color-mix(in srgb, #26c4b8 15%, transparent);
+    background-color: color-mix(in srgb, var(--color-interactive-accent) 15%, transparent);
     backdrop-filter: blur(16px);
-    box-shadow: 0 0 20px color-mix(in srgb, #26c4b8 20%, transparent);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-interactive-accent) 20%, transparent);
   }
 
   /* Dragging the native scrollbar thumb doesn't fire the pointer/touch
@@ -329,6 +331,14 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+}
+
+[data-motion-preset="minimal"] *,
+[data-motion-preset="minimal"] *::before,
+[data-motion-preset="minimal"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

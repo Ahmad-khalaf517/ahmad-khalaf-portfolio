@@ -1,6 +1,6 @@
 import Section from "../app/section";
 import SectionContent from "../app/section-content";
-import SectionTitle from "../app/section-title";
+import SectionHeading from "../app/section-heading";
 import { ExperienceTimeline } from "@/components/sections/experience-timeline";
 import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
 
@@ -19,26 +19,7 @@ export default function Experience({
       />
 
       <SectionContent className="container mx-auto px-6 relative z-10">
-        <div className="max-w-3xl mb-16">
-          <SectionTitle title={content.header.eyebrow} />
-          <h2
-            className="text-4xl md:text-5xl font-bold
-           mt-4 mb-6 animate-fade-in animation-delay-100
-            text-secondary-foreground"
-          >
-            {content.header.heading}{" "}
-            <span className="font-serif italic font-normal text-white">
-              {content.header.headingAccent}
-            </span>
-          </h2>
-
-          <p
-            className="text-muted-foreground
-           animate-fade-in animation-delay-200"
-          >
-            {content.header.description}
-          </p>
-        </div>
+        <SectionHeading header={content.header} />
 
         <ExperienceTimeline items={content.items} />
       </SectionContent>

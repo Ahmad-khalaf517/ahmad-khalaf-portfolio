@@ -4,7 +4,7 @@ import Image from "next/image";
 import Github from "@/assets/icons/github";
 import Section from "../app/section";
 import SectionContent from "../app/section-content";
-import SectionTitle from "../app/section-title";
+import SectionHeading from "../app/section-heading";
 import { TiltCard } from "@/components/ui/tilt-card";
 import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
 
@@ -22,19 +22,7 @@ export default function Projects({
       <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
       <SectionContent>
         {/* Section Header */}
-        <div className="text-center mx-auto max-w-3xl mb-16">
-          <SectionTitle title={content.header.eyebrow} />
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
-            {content.header.heading}
-            <span className="font-serif italic font-normal text-white">
-              {" "}
-              {content.header.headingAccent}
-            </span>
-          </h2>
-          <p className="text-muted-foreground animate-fade-in animation-delay-200">
-            {content.header.description}
-          </p>
-        </div>
+        <SectionHeading header={content.header} align="center" />
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-8">

@@ -3,7 +3,7 @@ import { type ComponentType, type SVGProps } from "react";
 import { siWhatsapp } from "simple-icons";
 import Section from "../app/section";
 import SectionContent from "../app/section-content";
-import SectionTitle from "../app/section-title";
+import SectionHeading from "../app/section-heading";
 import { ContactForm } from "@/components/sections/contact-form";
 import type { ContactIconKey } from "@/lib/content/types";
 import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
@@ -42,18 +42,7 @@ export default function Contact({
       </div>
 
       <SectionContent>
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <SectionTitle title={content.header.eyebrow} />
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6 animate-fade-in animation-delay-100 text-secondary-foreground">
-            {content.header.heading}{" "}
-            <span className="font-serif italic font-normal text-white">
-              {content.header.headingAccent}
-            </span>
-          </h2>
-          <p className="text-muted-foreground animate-fade-in animation-delay-200">
-            {content.header.description}
-          </p>
-        </div>
+        <SectionHeading header={content.header} align="center" />
 
         <div className="w-full flex flex-col justify-center items-center lg:flex-row gap-10 max-w-5xl animate-fade-in animation-delay-300">
           <div className="w-full glass p-8 rounded-3xl border border-primary/30 animate-fade-in animation-delay-300 flex-1 max-w-md lg:self-stretch">

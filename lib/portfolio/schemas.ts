@@ -36,10 +36,18 @@ const hexColorSchema = z
 
 export const themeTokensSchema = z.strictObject({
   primaryColor: hexColorSchema,
+  interactiveAccentColor: hexColorSchema,
+  primaryForegroundColor: hexColorSchema,
   backgroundColor: hexColorSchema,
+  cardColor: hexColorSchema,
+  secondaryColor: hexColorSchema,
+  mutedColor: hexColorSchema,
   surfaceColor: hexColorSchema,
   foregroundColor: hexColorSchema,
   mutedForegroundColor: hexColorSchema,
+  borderColor: hexColorSchema,
+  highlightColor: hexColorSchema,
+  headingAccentColor: hexColorSchema,
   fontPreset: z.enum(["modern", "technical", "editorial"]),
   radiusPreset: z.enum(["sharp", "medium", "rounded"]),
   densityPreset: z.enum(["compact", "comfortable"]),
