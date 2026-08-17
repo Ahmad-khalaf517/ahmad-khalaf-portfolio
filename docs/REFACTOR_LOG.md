@@ -23,7 +23,7 @@ Every step records:
 | 2 | Canonical published portfolio snapshot and local adapter | Completed |
 | 3 | Configurable section registry and portfolio renderer | Completed |
 | 4 | Data-driven navigation, footer, metadata, and resume | Completed |
-| 5 | Public/client boundary cleanup and reusable preview rendering | Planned |
+| 5 | Public/client boundary cleanup and reusable preview rendering | Completed |
 | 6 | Theme-token boundary and shared presentation primitives | Planned |
 | 7 | Contact action hardening | Planned |
 | 8 | Dead-code cleanup, documentation, and full regression checks | Planned |
@@ -233,3 +233,56 @@ Those shell elements must change with the selected published portfolio as well.
 - The data source still exposes one local published portfolio. Supabase will replace the data
   adapter after authentication, migrations, and RLS are established.
 - Dashboard/preview shell differences remain Step 5.
+
+## Step 5 — Public Client Component boundary cleanup
+
+### Why
+
+The shared renderer was ready for public and preview routes, but complete Contact and
+Experience sections were Client Components even though most of their markup was static. The
+header also registered two independent listeners for the same scroll event.
+
+### Changes
+
+- Split the interactive contact form from the server-rendered contact section.
+- Gave contact fields section-scoped IDs so repeated contact sections do not duplicate label
+  targets.
+- Added an accessible live status region for contact submission feedback.
+- Split the animated experience timeline from the server-rendered experience heading and
+  section shell.
+- Consolidated header scroll state and progress into one request-animation-frame listener.
+- Memoized navigation so progress updates do not rerender the entire navigation tree.
+- Retained `PublishedPortfolioPage` and `PortfolioRenderer` as the shared composition and
+  canvas boundaries future authenticated previews will consume.
+
+### Files
+
+- `components/sections/contact.tsx`
+- `components/sections/contact-form.tsx`
+- `components/sections/experience.tsx`
+- `components/sections/experience-timeline.tsx`
+- `components/layout/header.tsx`
+- `components/layout/navbar.tsx`
+- `hooks/useHeaderScroll.ts`
+- Removed `hooks/useScrollProgress.ts`
+- Removed `hooks/useScrolledY.ts`
+
+### Verification
+
+- `pnpm test` — 19 tests passed.
+- `pnpm typecheck` — passed.
+- `pnpm lint` — passed.
+- `pnpm build` — passed with both public routes prerendered.
+
+### Decisions
+
+- Interactive islands receive fully validated serializable snapshot props from Server
+  Components; they do not fetch portfolio content themselves.
+- Section reveal behavior remains in the small shared `Section` client wrapper for now. It
+  does not pull section content modules into the client graph because content is passed as
+  rendered children.
+
+### Deferred
+
+- Authenticated preview routing belongs to the dashboard authentication phase. This refactor
+  establishes the shared renderer it will call without exposing draft data publicly.

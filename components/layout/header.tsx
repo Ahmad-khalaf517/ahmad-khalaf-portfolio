@@ -1,7 +1,6 @@
 "use client";
 import Navbar from "./navbar";
-import { useScrolledY } from "@/hooks/useScrolledY";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
+import { useHeaderScroll } from "@/hooks/useHeaderScroll";
 import type { PortfolioNavigationModel } from "@/lib/portfolio/rendering";
 
 export default function Header({
@@ -11,8 +10,7 @@ export default function Header({
   resumeUrl: string;
   navigation: PortfolioNavigationModel;
 }) {
-  const isScrolled = useScrolledY(50);
-  const scrollProgress = useScrollProgress();
+  const { isScrolled, progress } = useHeaderScroll(50);
 
   return (
     <header
@@ -24,7 +22,7 @@ export default function Header({
       <div className="absolute bottom-0 left-0 h-px w-full bg-border/50">
         <div
           className="h-full bg-primary shadow-[0_0_8px_var(--color-primary)] transition-[width] duration-150 ease-out"
-          style={{ width: `${scrollProgress}%` }}
+          style={{ width: `${progress}%` }}
         />
       </div>
     </header>

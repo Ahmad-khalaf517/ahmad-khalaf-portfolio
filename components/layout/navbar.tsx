@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { ResumeButtonGroup } from "@/components/ui/resume-button-group";
 import type { PortfolioNavigationModel } from "@/lib/portfolio/rendering";
 
-export default function Navbar({
+function Navbar({
   resumeUrl,
   navigation,
 }: {
@@ -120,3 +120,5 @@ export default function Navbar({
     </>
   );
 }
+
+export default memo(Navbar);
