@@ -4,7 +4,8 @@ import Section from "../app/section";
 import SectionContent from "../app/section-content";
 import SectionTitle from "../app/section-title";
 import { useScrollFill } from "@/hooks/useScrollFill";
-import type { ExperienceContent, ExperienceItem } from "@/lib/content/types";
+import type { ExperienceItem } from "@/lib/content/types";
+import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
 
 function TimelineRow({
   exp,
@@ -71,11 +72,17 @@ function TimelineRow({
   );
 }
 
-export default function Experience({ content }: { content: ExperienceContent }) {
+export default function Experience({
+  content,
+  sectionId = "experience",
+}: {
+  content: PublishedSectionOfKind<"experience">["content"];
+  sectionId?: string;
+}) {
   const { ref: timelineRef, progress } = useScrollFill<HTMLDivElement>();
 
   return (
-    <Section id="experience">
+    <Section id={sectionId}>
       <div
         className="absolute top-1/2 left-1/4 w-96
        h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2"
@@ -120,7 +127,7 @@ export default function Experience({ content }: { content: ExperienceContent }) 
 
               return (
                 <TimelineRow
-                  key={idx}
+                  key={exp.id}
                   exp={exp}
                   idx={idx}
                   reached={progress > revealAt}

@@ -6,11 +6,17 @@ import Section from "../app/section";
 import SectionContent from "../app/section-content";
 import SectionTitle from "../app/section-title";
 import { TiltCard } from "@/components/ui/tilt-card";
-import type { ProjectsContent } from "@/lib/content/types";
+import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
 
-export default function Projects({ content }: { content: ProjectsContent }) {
+export default function Projects({
+  content,
+  sectionId = "projects",
+}: {
+  content: PublishedSectionOfKind<"projects">["content"];
+  sectionId?: string;
+}) {
   return (
-    <Section id="projects">
+    <Section id={sectionId}>
       {/* Bg glows */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
@@ -34,7 +40,7 @@ export default function Projects({ content }: { content: ProjectsContent }) {
         <div className="grid md:grid-cols-2 gap-8">
           {content.items.map((project, idx) => (
             <TiltCard
-              key={idx}
+              key={project.id}
               className="group glass rounded-2xl overflow-hidden animate-fade-in md:row-span-1"
               style={{ animationDelay: `${(idx + 1) * 100}ms` }}
             >

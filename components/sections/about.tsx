@@ -2,7 +2,8 @@ import { Code2, Lightbulb, Rocket, Users } from "lucide-react";
 import Section from "../app/section";
 import SectionContent from "../app/section-content";
 import SectionTitle from "../app/section-title";
-import type { AboutContent, AboutIconKey } from "@/lib/content/types";
+import type { AboutIconKey } from "@/lib/content/types";
+import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
 
 const highlightIcons: Record<AboutIconKey, typeof Code2> = {
   code: Code2,
@@ -11,9 +12,15 @@ const highlightIcons: Record<AboutIconKey, typeof Code2> = {
   lightbulb: Lightbulb,
 };
 
-export default function AboutMe({ content }: { content: AboutContent }) {
+export default function AboutMe({
+  content,
+  sectionId = "about",
+}: {
+  content: PublishedSectionOfKind<"about">["content"];
+  sectionId?: string;
+}) {
   return (
-    <Section id="about">
+    <Section id={sectionId}>
       <SectionContent>
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left Column */}
@@ -47,7 +54,7 @@ export default function AboutMe({ content }: { content: AboutContent }) {
               const Icon = highlightIcons[item.icon];
               return (
                 <div
-                  key={idx}
+                  key={item.id}
                   className="glass p-6 rounded-2xl animate-fade-in group transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_16px_45px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                   style={{ animationDelay: `${(idx + 1) * 100}ms` }}
                 >

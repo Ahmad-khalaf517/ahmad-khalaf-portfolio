@@ -131,6 +131,15 @@ export const publishedSectionSchema = z.discriminatedUnion("kind", [
   contactSectionSchema,
 ]);
 
+export const publishedSectionKinds = [
+  "hero",
+  "about",
+  "experience",
+  "projects",
+  "hire-me",
+  "contact",
+] as const satisfies readonly PublishedSectionKind[];
+
 export const publishedPortfolioSnapshotSchema = z
   .strictObject({
     schemaVersion: z.literal(1),

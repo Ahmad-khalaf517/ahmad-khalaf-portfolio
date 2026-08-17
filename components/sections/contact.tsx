@@ -19,7 +19,8 @@ import SectionTitle from "../app/section-title";
 import SectionContent from "../app/section-content";
 import Section from "../app/section";
 import { submitContactForm } from "@/lib/actions/contact";
-import type { ContactContent, ContactIconKey } from "@/lib/content/types";
+import type { ContactIconKey } from "@/lib/content/types";
+import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
 
 type ContactIconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -40,7 +41,13 @@ const contactIcons: Record<ContactIconKey, ContactIconComponent> = {
   "map-pin": MapPin as ContactIconComponent,
 };
 
-export default function Contact({ content }: { content: ContactContent }) {
+export default function Contact({
+  content,
+  sectionId = "contact",
+}: {
+  content: PublishedSectionOfKind<"contact">["content"];
+  sectionId?: string;
+}) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -82,7 +89,7 @@ export default function Contact({ content }: { content: ContactContent }) {
     setIsLoading(false);
   };
   return (
-    <Section id="contact">
+    <Section id={sectionId}>
       <div className="absolute top-0 left-0 w-full h-full">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-highlight/5 rounded-full blur-3xl" />
@@ -225,11 +232,11 @@ export default function Contact({ content }: { content: ContactContent }) {
                 Contact Information
               </h3>
               <div className="space-y flex flex-col gap-2 max-w-full">
-                {content.info.map((item, i) => {
+                {content.info.map((item) => {
                   const Icon = contactIcons[item.icon];
                   return (
                     <a
-                      key={i}
+                      key={item.id}
                       href={item.href}
                       target="_blank"
                       className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface transition-colors group border border-border/50"

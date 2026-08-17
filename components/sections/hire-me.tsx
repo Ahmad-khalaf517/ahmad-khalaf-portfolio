@@ -8,7 +8,8 @@ import {
 } from "lucide-react";
 import Section from "../app/section";
 import SectionContent from "../app/section-content";
-import type { HireMeContent, HireMeIconKey } from "@/lib/content/types";
+import type { HireMeIconKey } from "@/lib/content/types";
+import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
 
 const valueIcons: Record<HireMeIconKey, typeof Code2> = {
   code: Code2,
@@ -17,10 +18,16 @@ const valueIcons: Record<HireMeIconKey, typeof Code2> = {
   "heart-handshake": HeartHandshake,
 };
 
-export default function WhyHireMe({ content }: { content: HireMeContent }) {
+export default function WhyHireMe({
+  content,
+  sectionId = "hire-me",
+}: {
+  content: PublishedSectionOfKind<"hire-me">["content"];
+  sectionId?: string;
+}) {
   return (
     <Section
-      id="hire-me"
+      id={sectionId}
       className="relative py-16! md:py-24! border-t border-border"
     >
       <SectionContent className="space-y-10 md:space-y-16 relative z-10">
@@ -47,7 +54,7 @@ export default function WhyHireMe({ content }: { content: HireMeContent }) {
             const Icon = valueIcons[item.icon];
             return (
               <div
-                key={index}
+                key={item.id}
                 className="glass p-6 md:p-8 rounded-(--radius) border border-border group animate-fade-in transition-all duration-300 hover:border-(--color-primary)/40 hover:-translate-y-1 shadow-sm hover:shadow-[0_16px_45px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                 style={{ animationDelay: `${150 + index * 80}ms` }}
               >

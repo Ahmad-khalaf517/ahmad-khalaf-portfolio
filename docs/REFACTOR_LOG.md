@@ -21,7 +21,7 @@ Every step records:
 | --- | --- | --- |
 | 1 | Runtime content schemas and schema tests | Completed |
 | 2 | Canonical published portfolio snapshot and local adapter | Completed |
-| 3 | Configurable section registry and portfolio renderer | Planned |
+| 3 | Configurable section registry and portfolio renderer | Completed |
 | 4 | Data-driven navigation, footer, metadata, and resume | Planned |
 | 5 | Public/client boundary cleanup and reusable preview rendering | Planned |
 | 6 | Theme-token boundary and shared presentation primitives | Planned |
@@ -120,3 +120,55 @@ local seed content today and immutable database versions later.
 - Section iteration and the renderer registry are Step 3.
 - Global identity extraction and metadata generation are Step 4.
 - Applying theme tokens to CSS variables is Step 6.
+
+## Step 3 — Configurable section registry and portfolio renderer
+
+### Why
+
+Although Step 2 introduced a configurable snapshot, the home page still listed every section
+manually. Dashboard ordering and visibility cannot work until rendering follows the snapshot
+rather than source-code order.
+
+### Changes
+
+- Added a pure helper that filters disabled sections and sorts enabled sections by position.
+- Added an exhaustive section registry for every published section discriminator.
+- Added `PortfolioRenderer` as the shared public/preview rendering entry point.
+- Changed section components to accept their stable snapshot section ID while retaining their
+  existing ID as a default.
+- Replaced list-level index keys with published item IDs where stable entities are available.
+- Changed the home page to render the snapshot through `PortfolioRenderer`.
+- Added coverage for ordering, visibility, and registry completeness.
+
+### Files
+
+- `components/portfolio/portfolio-renderer.tsx`
+- `components/portfolio/section-registry.tsx`
+- `components/portfolio/section-registry.test.ts`
+- `components/sections/*.tsx`
+- `lib/portfolio/rendering.ts`
+- `lib/portfolio/rendering.test.ts`
+- `lib/portfolio/schemas.ts`
+- `lib/data/local-content-adapter.ts`
+- `app/page.tsx`
+
+### Verification
+
+- `pnpm test` — 17 tests passed across four suites.
+- `pnpm typecheck` — passed.
+- `pnpm lint` — passed.
+- `pnpm build` — production build and static generation passed with registry rendering.
+
+### Decisions
+
+- The registry is exhaustive at compile time and also has a completeness test. Adding a new
+  published section kind therefore requires an explicit renderer.
+- Filtering and sorting are pure domain logic, independent of React, so they can be reused by
+  public pages and authenticated previews.
+- Snapshot section IDs are also DOM anchor IDs. This supports repeated/reordered dashboard
+  sections without hard-coded anchors in the renderer.
+
+### Deferred
+
+- Header and footer navigation still use fixed links until Step 4.
+- Client-component and animation boundary refinement remains Step 5.

@@ -6,7 +6,8 @@ import Linkedin from "@/assets/icons/linkedin";
 import SectionContent from "../app/section-content";
 import { CountUp } from "@/components/ui/count-up";
 import { TechMarquee } from "@/components/ui/tech-marquee";
-import type { HeroContent, SocialLink, TechnologyItem } from "@/lib/content/types";
+import type { SocialLink } from "@/lib/content/types";
+import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
 
 const socialIcons: Record<SocialLink["platform"], typeof Github> = {
   github: Github,
@@ -24,13 +25,15 @@ const dots = Array.from({ length: 30 }).map(() => ({
 export default function Hero({
   content,
   technologies,
+  sectionId = "hero",
 }: {
-  content: HeroContent;
-  technologies: TechnologyItem[];
+  content: PublishedSectionOfKind<"hero">["content"];
+  technologies: PublishedSectionOfKind<"hero">["technologies"];
+  sectionId?: string;
 }) {
   return (
     <section
-      id="hero"
+      id={sectionId}
       className="relative overflow-hidden min-h-screen flex items-center py-0"
     >
       {/* Bg */}

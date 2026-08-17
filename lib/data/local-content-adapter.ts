@@ -62,7 +62,7 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
     },
     sections: [
       {
-        id: "section-hero",
+        id: "hero",
         kind: "hero",
         enabled: true,
         position: 0,
@@ -74,7 +74,7 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
         })),
       },
       {
-        id: "section-about",
+        id: "about",
         kind: "about",
         enabled: true,
         position: 1,
@@ -88,7 +88,7 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
         },
       },
       {
-        id: "section-experience",
+        id: "experience",
         kind: "experience",
         enabled: true,
         position: 2,
@@ -102,7 +102,7 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
         },
       },
       {
-        id: "section-projects",
+        id: "projects",
         kind: "projects",
         enabled: true,
         position: 3,
@@ -116,7 +116,7 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
         },
       },
       {
-        id: "section-hire-me",
+        id: "hire-me",
         kind: "hire-me",
         enabled: true,
         position: 4,
@@ -130,7 +130,7 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
         },
       },
       {
-        id: "section-contact",
+        id: "contact",
         kind: "contact",
         enabled: true,
         position: 5,
