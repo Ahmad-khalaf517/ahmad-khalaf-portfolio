@@ -5,46 +5,92 @@ import projectsData from "@/content/projects.json";
 import technologiesData from "@/content/technologies.json";
 import hireMeData from "@/content/hire-me.json";
 import contactData from "@/content/contact.json";
+import {
+  aboutContentSchema,
+  contactContentSchema,
+  experienceContentSchema,
+  heroContentSchema,
+  hireMeContentSchema,
+  parseContent,
+  projectsContentSchema,
+  technologiesSchema,
+} from "@/lib/content/schemas";
 import type {
-  HeroContent,
   AboutContent,
+  ContactContent,
   ExperienceContent,
+  HeroContent,
+  HireMeContent,
   ProjectsContent,
   TechnologyItem,
-  HireMeContent,
-  ContactContent,
 } from "@/lib/content/types";
 
 /**
- * These loaders read local JSON today. Once the content dashboard lands
- * (see docs/DASHBOARD_PLAN.md), only the internals here change to query the
- * database — every call site can stay exactly as it is.
+ * Local JSON remains the temporary content source. Validation happens once
+ * when this server module loads, so malformed content fails early instead of
+ * reaching a section component with an unsafe type assertion.
  */
 
+const heroContent = parseContent(
+  heroContentSchema,
+  heroData,
+  "content/hero.json",
+);
+const aboutContent = parseContent(
+  aboutContentSchema,
+  aboutData,
+  "content/about.json",
+);
+const experienceContent = parseContent(
+  experienceContentSchema,
+  experienceData,
+  "content/experience.json",
+);
+const projectsContent = parseContent(
+  projectsContentSchema,
+  projectsData,
+  "content/projects.json",
+);
+const technologies = parseContent(
+  technologiesSchema,
+  technologiesData,
+  "content/technologies.json",
+);
+const hireMeContent = parseContent(
+  hireMeContentSchema,
+  hireMeData,
+  "content/hire-me.json",
+);
+const contactContent = parseContent(
+  contactContentSchema,
+  contactData,
+  "content/contact.json",
+);
+
 export async function getHeroContent(): Promise<HeroContent> {
-  return heroData as HeroContent;
+  return heroContent;
 }
 
 export async function getAboutContent(): Promise<AboutContent> {
-  return aboutData as AboutContent;
+  return aboutContent;
 }
 
 export async function getExperienceContent(): Promise<ExperienceContent> {
-  return experienceData as ExperienceContent;
+  return experienceContent;
 }
 
 export async function getProjectsContent(): Promise<ProjectsContent> {
-  return projectsData;
+  return projectsContent;
 }
 
 export async function getTechnologies(): Promise<TechnologyItem[]> {
-  return technologiesData as TechnologyItem[];
+  return technologies;
 }
 
 export async function getHireMeContent(): Promise<HireMeContent> {
-  return hireMeData as HireMeContent;
+  return hireMeContent;
 }
 
 export async function getContactContent(): Promise<ContactContent> {
-  return contactData as ContactContent;
+  return contactContent;
 }
