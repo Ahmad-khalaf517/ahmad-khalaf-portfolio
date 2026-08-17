@@ -1,138 +1,108 @@
 # Ahmad Khalaf Portfolio
 
-A modern and responsive portfolio website built with **Next.js**, **TypeScript**, and **Tailwind CSS** to showcase my professional experience, technical skills, and featured projects.
+A responsive portfolio built with Next.js 16, React 19, TypeScript, Tailwind CSS 4, and a
+validated content architecture designed to evolve into a multi-portfolio dashboard.
 
-## Live Demo
+Production: [ahmad-khalaf-portfolio.vercel.app](https://ahmad-khalaf-portfolio.vercel.app/)
 
-Visit the deployed website: [https://ahmad-khalaf-portfolio.vercel.app/](https://ahmad-khalaf-portfolio.vercel.app/)
+## Public routes
 
-## About
+- `/` renders the default published portfolio.
+- `/p/full-stack` renders the same portfolio through the shareable slug route.
+- Future published portfolios will use `/p/[slug]` without requiring new section components.
 
-I'm Ahmad Khalaf, a Front-End Developer with more than 5 years of experience building scalable and high-performance web applications.
+## Architecture
 
-My expertise includes React, TypeScript, modern UI development, performance optimization, API integration, and building responsive user experiences. I also have experience working with backend technologies such as NestJS, Flask, PostgreSQL, and MySQL.
+The public site consumes one versioned `PublishedPortfolioSnapshot` rather than loading
+individual content files from page components.
+
+```text
+content/*.json
+    ↓ runtime Zod validation
+local content adapter
+    ↓
+PublishedPortfolioSnapshot
+    ├── identity, SEO, resume, and validated theme
+    └── ordered, enabled, discriminated sections
+            ↓
+      PortfolioRenderer + section registry
+```
+
+Local JSON is the current source and future seed input. The planned Supabase data layer will
+produce the same published snapshot contract, allowing the public renderer to remain stable.
+
+Important documents:
+
+- [`docs/REFACTOR_LOG.md`](docs/REFACTOR_LOG.md) records each dashboard-readiness refactor step,
+  decisions, files, verification, and commit intent.
+- [`docs/DASHBOARD_PLAN.md`](docs/DASHBOARD_PLAN.md) defines the authenticated multi-portfolio
+  dashboard, schema, security model, publishing workflow, and delivery phases.
 
 ## Features
 
-* Responsive design across all devices
-* Modern and accessible user interface
-* Professional experience timeline
-* Skills and technology showcase
-* Featured projects section
-* Contact information and social links
-* SEO optimization
-* Fast performance and optimized loading
-* Dark mode support
+- Server-rendered portfolio sections with small interactive client islands.
+- Configurable section ordering and visibility through the published snapshot.
+- Data-driven navigation, footer, identity, resume actions, and SEO.
+- Shareable portfolio slug routes with static generation.
+- Validated semantic theme tokens, density, typography, radius, and motion presets.
+- Runtime validation for local and future database content.
+- Hardened contact Server Action with strict input limits, honeypot, timeout, and bounded rate
+  limiting.
+- Responsive, accessible interactions with reduced-motion support.
+- Locally hosted Geist font assets for deterministic builds.
 
-## Project Structure
+## Requirements
 
-```text
-├── app/
-│   ├── api/
-│   │   └── version/
-│   │       └── route.ts
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
-├── assets/
-│   ├── icons/
-│   └── images/
-├── components/
-│   ├── app/
-│   │   ├── section-content.tsx
-│   │   ├── section-title.tsx
-│   │   ├── section.tsx
-│   │   └── update-banner.tsx
-│   ├── layout/
-│   │   ├── footer.tsx
-│   │   ├── header.tsx
-│   │   └── navbar.tsx
-│   ├── sections/
-│   │   ├── about.tsx
-│   │   ├── contact.tsx
-│   │   ├── experience.tsx
-│   │   ├── hero.tsx
-│   │   ├── hire-me.tsx
-│   │   ├── projects.tsx
-│   │   ├── skills.tsx
-│   │   └── technologies.tsx
-│   └── ui/
-│       ├── animated-border-button.tsx
-│       └── button.tsx
-├── hooks/
-│   ├── useAppVersion.ts
-│   └── useScrolledY.ts
-└── public/
-    └── projects/
-```
+- Node.js 20 or newer.
+- pnpm 10.
 
-## Getting Started
-
-### Prerequisites
-
-Make sure you have the following installed:
-
-* Node.js 20+
-* pnpm
-
-### Clone the Repository
-
-```bash
-git clone git@github.com:Ahmad-khalaf517/MyPortfolio.git
-cd MyPortfolio
-```
-
-### Install Dependencies
+## Setup
 
 ```bash
 pnpm install
+pnpm dev
 ```
 
-### Environment Variables
+Open [http://localhost:3000](http://localhost:3000).
 
-Create a `.env.local` file in the project root and add the following EmailJS keys.
-The contact form is sent from a Server Action (`lib/actions/contact.ts`), so none of
-these are exposed to the browser — no `NEXT_PUBLIC_` prefix needed. `EMAILJS_PRIVATE_KEY`
-is the "Private Key" / Access Token from your EmailJS account's API Keys settings, required
-for server-side (non-browser) requests.
+## Environment variables
+
+Create `.env.local`:
 
 ```env
 EMAILJS_SERVICE_ID=your_service_id
 EMAILJS_TEMPLATE_ID=your_template_id
 EMAILJS_PUBLIC_KEY=your_public_key
 EMAILJS_PRIVATE_KEY=your_private_key
+
+# Optional metadata base. The production portfolio URL is the fallback.
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
-### Run the Development Server
+EmailJS credentials are used only by the server-side contact provider adapter. Do not prefix
+private credentials with `NEXT_PUBLIC_`.
+
+## Quality commands
 
 ```bash
-pnpm dev
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
 ```
 
-Open your browser and navigate to:
+Use `pnpm test:watch` during schema or domain-logic development.
+
+## Main directories
 
 ```text
-http://localhost:3000
+app/                    Public routes, metadata, and global styles
+components/portfolio/   Published page composition, registry, and renderer
+components/sections/    Section views and focused interactive islands
+content/                Current validated JSON content and future seed source
+lib/content/            Content schemas, types, and local loaders
+lib/data/               Server-only published-portfolio data access
+lib/portfolio/          Snapshot, rendering, metadata, theme, and domain helpers
+lib/contact/            Contact validation, rate limiting, and provider adapter
+docs/                   Refactor history and dashboard implementation plan
 ```
-
-### Build for Production
-
-```bash
-pnpm run build
-```
-
-### Start Production Server
-
-```bash
-pnpm run start
-```
-
-## Contact
-
-* Email: [AhmadKhalaf517@gmail.com](mailto:AhmadKhalaf517@gmail.com)
-* LinkedIn: [linkedin.com/in/ahmad-khalaf](https://www.linkedin.com/in/ahmad-khalaf-7a2637264/)
-* GitHub: [github.com/Ahmad-khalaf517](https://github.com/Ahmad-khalaf517)
-
----
-
-Built with ❤️ using Next.js, TypeScript and Tailwind CSS.

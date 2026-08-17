@@ -28,33 +28,13 @@ function AnimatedBorderGraphic() {
   );
 }
 
-type AnimatedBorderButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-export const AnimatedBorderButton = ({
-  children,
-  className = "",
-  ...props
-}: AnimatedBorderButtonProps) => {
-  return (
-    <button
-      className={`${animatedBorderClasses} disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
-      {...props}
-    >
-      <AnimatedBorderGraphic />
-      <span className="relative z-10 flex items-center justify-center gap-2">
-        {children}
-      </span>
-    </button>
-  );
-};
-
 type AnimatedBorderLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export const AnimatedBorderLink = ({
+export function AnimatedBorderLink({
   children,
   className = "",
   ...props
-}: AnimatedBorderLinkProps) => {
+}: AnimatedBorderLinkProps) {
   return (
     <a className={`${animatedBorderClasses} ${className}`} {...props}>
       <AnimatedBorderGraphic />
@@ -63,4 +43,4 @@ export const AnimatedBorderLink = ({
       </span>
     </a>
   );
-};
+}

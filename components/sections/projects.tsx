@@ -1,5 +1,4 @@
 import { ArrowUpRight } from "lucide-react";
-// import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
 import Github from "@/assets/icons/github";
 import Section from "../app/section";
@@ -103,14 +102,6 @@ export default function Projects({
             </TiltCard>
           ))}
         </div>
-
-        {/* View All CTA */}
-        {/* <div className="text-center mt-12 animate-fade-in animation-delay-500">
-          <AnimatedBorderButton>
-            {content.ctaLabel}
-            <ArrowUpRight className="w-5 h-5" />
-          </AnimatedBorderButton>
-        </div> */}
       </SectionContent>
     </Section>
   );

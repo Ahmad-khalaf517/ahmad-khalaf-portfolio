@@ -1,6 +1,6 @@
 import { ArrowRight, Download } from "lucide-react";
 import Image from "next/image";
-import { AnimatedBorderLink } from "@/components/ui/animated-border-button";
+import { AnimatedBorderLink } from "@/components/ui/animated-border-link";
 import Github from "@/assets/icons/github";
 import Linkedin from "@/assets/icons/linkedin";
 import SectionContent from "../app/section-content";

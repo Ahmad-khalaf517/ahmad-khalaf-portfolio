@@ -26,7 +26,7 @@ Every step records:
 | 5 | Public/client boundary cleanup and reusable preview rendering | Completed |
 | 6 | Theme-token boundary and shared presentation primitives | Completed |
 | 7 | Contact action hardening | Completed |
-| 8 | Dead-code cleanup, documentation, and full regression checks | Planned |
+| 8 | Dead-code cleanup, documentation, and full regression checks | Completed |
 
 ## Step 1 — Runtime content schemas and schema tests
 
@@ -398,3 +398,60 @@ no application-level abuse bound.
 
 - Contact submission persistence and an admin inbox remain outside the dashboard MVP.
 - A distributed rate-limit store can replace the local limiter if traffic or abuse warrants it.
+
+## Step 8 — Cleanup, documentation, and final regression
+
+### Why
+
+The original repository retained an unused build-version polling feature, a dynamic API route,
+Git-dependent configuration evaluation, stale structure documentation, and a component export
+that was only present inside commented code. Production builds also downloaded Geist from
+Google at build time.
+
+### Changes
+
+- Replaced `next/font/google` with the official local `geist` package.
+- Removed the unused app-version hook, `/api/version` route, public build-ID environment value,
+  and Git command from `next.config.ts`.
+- Removed the unused animated button variant and renamed the remaining component around its
+  actual link responsibility.
+- Removed the commented Projects CTA implementation while retaining its validated content
+  field for future dashboard use.
+- Made `typecheck` regenerate Next.js route definitions before running TypeScript, preventing
+  stale generated references after route changes.
+- Added a guarded pre-typecheck cleanup for `.next/dev/types`, an ephemeral development-server
+  cache that can retain deleted routes. Next's required TypeScript includes remain unchanged.
+- Rewrote the README around the current snapshot architecture, routes, environment, quality
+  commands, and dashboard documentation.
+- Updated the dashboard migration plan to start from the completed validation, snapshot,
+  adapter, and renderer foundation.
+
+### Files
+
+- `app/layout.tsx`
+- Removed `app/api/version/route.ts`
+- Removed `hooks/useAppVersion.ts`
+- `next.config.ts`
+- `components/ui/animated-border-link.tsx`
+- Removed `components/ui/animated-border-button.tsx`
+- `components/sections/hero.tsx`
+- `components/sections/projects.tsx`
+- `README.md`
+- `docs/DASHBOARD_PLAN.md`
+- `package.json`
+- `pnpm-lock.yaml`
+- `scripts/clear-stale-next-dev-types.mjs`
+
+### Verification
+
+- `pnpm test` — 23 tests passed across seven suites.
+- `pnpm typecheck` — regenerated Next route types and passed TypeScript.
+- `pnpm lint` — passed.
+- `pnpm build` — passed inside the restricted sandbox without font network access.
+- Production smoke test — `/` and `/p/full-stack` both returned HTTP 200, the expected
+  portfolio title, `#main-content`, and the configured Contact section.
+
+### Deferred
+
+- Supabase dependencies, migrations, OAuth, RLS, Storage policies, and dashboard routes begin
+  only after this refactor branch is reviewed.

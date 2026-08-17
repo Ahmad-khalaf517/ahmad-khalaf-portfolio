@@ -573,21 +573,28 @@ font support, page-break control, accessibility, and generation time.
 The existing content structure is useful groundwork:
 
 - `content/*.json` contains the current source data.
-- `lib/content/types.ts` defines the current content shapes.
-- `lib/content/loaders.ts` isolates the components from the storage implementation.
+- `lib/content/schemas.ts` validates current content and derives its TypeScript types.
+- `lib/data/local-content-adapter.ts` resolves local content into a versioned published snapshot.
+- `lib/portfolio/schemas.ts` defines the public renderer contract that Supabase publishing must
+  produce.
+- `components/portfolio/portfolio-renderer.tsx` renders ordered enabled sections independently
+  of their storage source.
+
+The completed preparation work and verification history are recorded in
+`docs/REFACTOR_LOG.md`.
 
 Migration sequence:
 
-1. Add Zod schemas matching the current TypeScript interfaces.
-2. Create Supabase migrations and generated database types.
-3. Write an idempotent seed/import command for `content/*.json`.
-4. Upload current profile/project images and resume files to Storage.
-5. Create a default portfolio using the imported content.
-6. Add a temporary `CONTENT_SOURCE=json|supabase` switch.
-7. Compare the Supabase-rendered portfolio against the current JSON-rendered site.
-8. Publish the imported default portfolio.
-9. Remove the runtime JSON fallback only after production verification.
-10. Keep a sanitized export/seed as a recovery fixture if useful.
+1. Create Supabase migrations and generated database types.
+2. Write an idempotent seed/import command for `content/*.json`.
+3. Upload current profile/project images and resume files to Storage.
+4. Create a default portfolio using the imported content.
+5. Implement the Supabase published-portfolio adapter behind the existing data-access module.
+6. Compare Supabase-generated snapshots against the local adapter fixtures.
+7. Publish and visually compare the imported default portfolio.
+8. Switch the production data-access module to the Supabase adapter.
+9. Remove the runtime local adapter only after production verification.
+10. Keep the sanitized JSON and snapshot fixtures for recovery and regression tests.
 
 ## 12. Implementation phases and AI-assisted estimates
 

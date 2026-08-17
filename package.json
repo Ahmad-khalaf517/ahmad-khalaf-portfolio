@@ -8,11 +8,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
+    "pretypecheck": "node scripts/clear-stale-next-dev-types.mjs",
+    "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
+    "geist": "^1.7.2",
     "lucide-react": "^1.18.0",
     "next": "16.2.9",
     "radix-ui": "^1.5.0",

@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -22,7 +17,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} h-full antialiased`}
+      className={`${GeistSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <a href="#main-content" className="skip-link">
