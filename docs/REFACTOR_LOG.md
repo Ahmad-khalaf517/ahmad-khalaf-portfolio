@@ -20,7 +20,7 @@ Every step records:
 | Step | Scope | Status |
 | --- | --- | --- |
 | 1 | Runtime content schemas and schema tests | Completed |
-| 2 | Canonical published portfolio snapshot and local adapter | Planned |
+| 2 | Canonical published portfolio snapshot and local adapter | Completed |
 | 3 | Configurable section registry and portfolio renderer | Planned |
 | 4 | Data-driven navigation, footer, metadata, and resume | Planned |
 | 5 | Public/client boundary cleanup and reusable preview rendering | Planned |
@@ -68,3 +68,55 @@ database is introduced.
 Stable entity IDs, section discriminators, and the published snapshot belong to Step 2.
 This step validates the current content shape without forcing the new storage model into the
 existing UI.
+
+## Step 2 — Canonical published snapshot and local adapter
+
+### Why
+
+The public page previously loaded each JSON file independently and decided the section order
+itself. A multi-portfolio dashboard needs one stable public contract that can be produced by
+local seed content today and immutable database versions later.
+
+### Changes
+
+- Added a versioned `PublishedPortfolioSnapshot` schema.
+- Added discriminated section schemas with stable section and item IDs.
+- Added validated SEO and theme data to the published contract.
+- Added duplicate section-ID and position checks.
+- Added a local adapter that resolves the existing JSON into the published contract.
+- Added a server-only published-portfolio data-access module.
+- Changed the home page to consume the snapshot while preserving the current explicit
+  section rendering. The generic renderer remains Step 3.
+- Added snapshot and section-narrowing tests.
+
+### Files
+
+- `lib/portfolio/schemas.ts`
+- `lib/portfolio/sections.ts`
+- `lib/portfolio/snapshot.test.ts`
+- `lib/data/local-content-adapter.ts`
+- `lib/data/published-portfolios.ts`
+- `app/page.tsx`
+- `vitest.config.mts`
+
+### Verification
+
+- `pnpm test` — 14 tests passed across content and snapshot suites.
+- `pnpm typecheck` — passed.
+- `pnpm lint` — passed.
+- `pnpm build` — production build and static generation passed through the snapshot data path.
+
+### Decisions
+
+- Published snapshots are renderer-facing, validated, and versioned. The future normalized
+  draft tables may differ internally.
+- Technologies remain resolved into the hero section because that matches the current public
+  design. They can still originate from shared content entries in the future database.
+- Local semantic IDs are deterministic seed IDs. Database-backed content will use persisted
+  IDs rather than regenerating them from labels.
+
+### Deferred
+
+- Section iteration and the renderer registry are Step 3.
+- Global identity extraction and metadata generation are Step 4.
+- Applying theme tokens to CSS variables is Step 6.

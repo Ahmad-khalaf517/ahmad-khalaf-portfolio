@@ -6,38 +6,28 @@ import Projects from "@/components/sections/projects";
 import Header from "@/components/layout/header";
 import HireMe from "@/components/sections/hire-me";
 import { Footer } from "@/components/layout/footer";
-import {
-  getAboutContent,
-  getContactContent,
-  getExperienceContent,
-  getHeroContent,
-  getHireMeContent,
-  getProjectsContent,
-  getTechnologies,
-} from "@/lib/content/loaders";
+import { getDefaultPublishedPortfolio } from "@/lib/data/published-portfolios";
+import { getRequiredPublishedSection } from "@/lib/portfolio/sections";
 
 export default async function Home() {
-  const [hero, about, experience, projects, technologies, hireMe, contact] =
-    await Promise.all([
-      getHeroContent(),
-      getAboutContent(),
-      getExperienceContent(),
-      getProjectsContent(),
-      getTechnologies(),
-      getHireMeContent(),
-      getContactContent(),
-    ]);
+  const portfolio = await getDefaultPublishedPortfolio();
+  const hero = getRequiredPublishedSection(portfolio, "hero");
+  const about = getRequiredPublishedSection(portfolio, "about");
+  const experience = getRequiredPublishedSection(portfolio, "experience");
+  const projects = getRequiredPublishedSection(portfolio, "projects");
+  const hireMe = getRequiredPublishedSection(portfolio, "hire-me");
+  const contact = getRequiredPublishedSection(portfolio, "contact");
 
   return (
     <div className="min-h-screen overflow-x-hidden">
-      <Header resumeUrl={hero.resumeUrl} />
+      <Header resumeUrl={hero.content.resumeUrl} />
       <main id="main-content" tabIndex={-1}>
-        <Hero content={hero} technologies={technologies} />
-        <About content={about} />
-        <Experience content={experience} />
-        <Projects content={projects} />
-        <HireMe content={hireMe} />
-        <Contact content={contact} />
+        <Hero content={hero.content} technologies={hero.technologies} />
+        <About content={about.content} />
+        <Experience content={experience.content} />
+        <Projects content={projects.content} />
+        <HireMe content={hireMe.content} />
+        <Contact content={contact.content} />
       </main>
       <Footer />
     </div>
