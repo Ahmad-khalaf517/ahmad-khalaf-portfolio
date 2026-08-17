@@ -34,6 +34,7 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
       getHireMeContent(),
       getContactContent(),
     ]);
+  const { name, resumeUrl, socialLinks, ...heroSectionContent } = hero;
 
   return publishedPortfolioSnapshotSchema.parse({
     schemaVersion: 1,
@@ -42,6 +43,15 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
       name: "Full Stack Portfolio",
       slug: "full-stack",
       isDefault: true,
+    },
+    identity: {
+      displayName: name,
+      logoUrl: "/logo.svg",
+      socialLinks,
+      resume: {
+        label: "Resume",
+        url: resumeUrl,
+      },
     },
     seo: {
       title: "Ahmad Khalaf - Software Engineer",
@@ -67,7 +77,7 @@ export async function createLocalPublishedPortfolio(): Promise<PublishedPortfoli
         enabled: true,
         position: 0,
         navigationLabel: "Home",
-        content: hero,
+        content: heroSectionContent,
         technologies: technologies.map((technology, index) => ({
           ...technology,
           id: createLocalId("technology", technology.name, index),

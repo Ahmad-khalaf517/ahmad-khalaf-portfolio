@@ -22,7 +22,7 @@ Every step records:
 | 1 | Runtime content schemas and schema tests | Completed |
 | 2 | Canonical published portfolio snapshot and local adapter | Completed |
 | 3 | Configurable section registry and portfolio renderer | Completed |
-| 4 | Data-driven navigation, footer, metadata, and resume | Planned |
+| 4 | Data-driven navigation, footer, metadata, and resume | Completed |
 | 5 | Public/client boundary cleanup and reusable preview rendering | Planned |
 | 6 | Theme-token boundary and shared presentation primitives | Planned |
 | 7 | Contact action hardening | Planned |
@@ -172,3 +172,64 @@ rather than source-code order.
 
 - Header and footer navigation still use fixed links until Step 4.
 - Client-component and animation boundary refinement remains Step 5.
+
+## Step 4 — Data-driven portfolio shell and public routes
+
+### Why
+
+The section renderer followed snapshot configuration, but the header, footer, personal
+identity, resume actions, and page metadata still contained assumptions for one portfolio.
+Those shell elements must change with the selected published portfolio as well.
+
+### Changes
+
+- Moved display name, logo, social links, and resume information into snapshot identity data.
+- Removed the duplicated global identity fields from published hero-section content.
+- Derived navigation links and active-section IDs from ordered enabled sections.
+- Made header and footer navigation, social links, copyright, logo, and resume actions consume
+  snapshot data.
+- Added a shared `PublishedPortfolioPage` composition for default, slug, and future preview
+  routes.
+- Generated title, description, canonical, Open Graph, and Twitter metadata from the snapshot.
+- Added the statically generated `/p/[slug]` public portfolio route with runtime slug
+  validation and 404 handling.
+- Added navigation and metadata tests.
+
+### Files
+
+- `app/layout.tsx`
+- `app/page.tsx`
+- `app/p/[slug]/page.tsx`
+- `components/layout/header.tsx`
+- `components/layout/navbar.tsx`
+- `components/layout/footer.tsx`
+- `components/portfolio/published-portfolio-page.tsx`
+- `components/portfolio/section-registry.tsx`
+- `components/sections/hero.tsx`
+- `lib/data/local-content-adapter.ts`
+- `lib/data/published-portfolios.ts`
+- `lib/portfolio/metadata.ts`
+- `lib/portfolio/metadata.test.ts`
+- `lib/portfolio/rendering.ts`
+- `lib/portfolio/rendering.test.ts`
+- `lib/portfolio/schemas.ts`
+
+### Verification
+
+- `pnpm test` — 19 tests passed across five suites.
+- `pnpm typecheck` — passed after correcting registry call arity.
+- `pnpm lint` — passed.
+- `pnpm build` — passed; `/` is static and `/p/full-stack` is generated as SSG output.
+
+### Decisions
+
+- The default `/` route and `/p/full-stack` use the same rendering component and snapshot.
+- Dynamic route params are awaited as required by Next.js 16 and known slugs are supplied by
+  `generateStaticParams` for build-time generation.
+- `NEXT_PUBLIC_SITE_URL` can set the metadata base; the current production URL is the fallback.
+
+### Deferred
+
+- The data source still exposes one local published portfolio. Supabase will replace the data
+  adapter after authentication, migrations, and RLS are established.
+- Dashboard/preview shell differences remain Step 5.

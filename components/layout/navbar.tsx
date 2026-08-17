@@ -1,23 +1,22 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { ResumeButtonGroup } from "@/components/ui/resume-button-group";
+import type { PortfolioNavigationModel } from "@/lib/portfolio/rendering";
 
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#hire-me", label: "Hire Me" },
-  { href: "#contact", label: "Contact" },
-];
-
-// Includes "hero" (no nav link of its own) purely so no link is ever
-// mis-highlighted while the user is still at the top of the page.
-const sectionIds = ["hero", "about", "experience", "projects", "hire-me", "contact"];
-
-export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
+export default function Navbar({
+  resumeUrl,
+  navigation,
+}: {
+  resumeUrl: string;
+  navigation: PortfolioNavigationModel;
+}) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const sectionIds = useMemo(
+    () => navigation.sectionIds,
+    [navigation.sectionIds],
+  );
   const activeSection = useActiveSection(sectionIds);
 
   useEffect(() => {
@@ -48,8 +47,8 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-1">
           <ul className="glass rounded-full px-2 py-1 flex items-center gap-1">
-            {navLinks.map((link) => {
-              const isActive = activeSection === link.href.slice(1);
+            {navigation.links.map((link) => {
+              const isActive = activeSection === link.id;
               return (
                 <li key={link.href}>
                   <a
@@ -93,12 +92,12 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
           className="lg:hidden border-t border-border bg-background/95 backdrop-blur-xl animate-fade-in shadow-2xl shadow-black/25"
         >
           <div className="container mx-auto px-6 py-5 flex flex-col gap-2">
-            {navLinks.map((link, index) => {
-              const isActive = activeSection === link.href.slice(1);
+            {navigation.links.map((link) => {
+              const isActive = activeSection === link.id;
               return (
                 <a
                   href={link.href}
-                  key={index}
+                  key={link.id}
                   onClick={() => setIsMobileMenuOpen(false)}
                   aria-current={isActive ? "true" : undefined}
                   className={`text-base min-h-11 px-4 rounded-xl inline-flex items-center transition-colors ${

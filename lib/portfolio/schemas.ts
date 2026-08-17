@@ -1,5 +1,6 @@
 import { z } from "zod";
 import {
+  assetUrlSchema,
   aboutContentSchema,
   aboutHighlightSchema,
   contactContentSchema,
@@ -12,6 +13,7 @@ import {
   projectItemSchema,
   projectsContentSchema,
   technologyItemSchema,
+  socialLinkSchema,
 } from "@/lib/content/schemas";
 
 export const entityIdSchema = z
@@ -85,10 +87,16 @@ const sectionBaseShape = {
   navigationLabel: z.string().trim().min(1).max(100),
 };
 
+const publishedHeroContentSchema = heroContentSchema.omit({
+  name: true,
+  resumeUrl: true,
+  socialLinks: true,
+});
+
 export const heroSectionSchema = z.strictObject({
   ...sectionBaseShape,
   kind: z.literal("hero"),
-  content: heroContentSchema,
+  content: publishedHeroContentSchema,
   technologies: publishedTechnologiesSchema,
 });
 
@@ -148,6 +156,15 @@ export const publishedPortfolioSnapshotSchema = z
       name: z.string().trim().min(1).max(200),
       slug: portfolioSlugSchema,
       isDefault: z.boolean(),
+    }),
+    identity: z.strictObject({
+      displayName: z.string().trim().min(1).max(200),
+      logoUrl: assetUrlSchema,
+      socialLinks: z.array(socialLinkSchema).min(1).max(10),
+      resume: z.strictObject({
+        label: z.string().trim().min(1).max(100),
+        url: assetUrlSchema,
+      }),
     }),
     seo: z.strictObject({
       title: z.string().trim().min(1).max(200),

@@ -13,7 +13,9 @@ export function PortfolioRenderer({
   return (
     <main id="main-content" tabIndex={-1}>
       {sections.map((section) => (
-        <Fragment key={section.id}>{renderPublishedSection(section)}</Fragment>
+        <Fragment key={section.id}>
+          {renderPublishedSection(section, snapshot)}
+        </Fragment>
       ))}
     </main>
   );

@@ -11,7 +11,7 @@ const webUrlSchema = z
     message: "URL must use HTTP or HTTPS.",
   });
 
-const assetUrlSchema = z
+export const assetUrlSchema = z
   .string()
   .trim()
   .min(1)

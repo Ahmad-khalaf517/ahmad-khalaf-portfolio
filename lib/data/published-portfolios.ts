@@ -19,3 +19,8 @@ export async function getPublishedPortfolioBySlug(slug: string) {
   const portfolio = await localPublishedPortfolio;
   return portfolio.portfolio.slug === parsedSlug.data ? portfolio : null;
 }
+
+export async function getPublishedPortfolioSlugs() {
+  const portfolio = await localPublishedPortfolio;
+  return [portfolio.portfolio.slug];
+}

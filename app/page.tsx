@@ -1,18 +1,14 @@
-import Header from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { PortfolioRenderer } from "@/components/portfolio/portfolio-renderer";
+import type { Metadata } from "next";
+import { PublishedPortfolioPage } from "@/components/portfolio/published-portfolio-page";
 import { getDefaultPublishedPortfolio } from "@/lib/data/published-portfolios";
-import { getRequiredPublishedSection } from "@/lib/portfolio/sections";
+import { createPortfolioMetadata } from "@/lib/portfolio/metadata";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const portfolio = await getDefaultPublishedPortfolio();
+  return createPortfolioMetadata(portfolio, "/");
+}
 
 export default async function Home() {
   const portfolio = await getDefaultPublishedPortfolio();
-  const hero = getRequiredPublishedSection(portfolio, "hero");
-
-  return (
-    <div className="min-h-screen overflow-x-hidden">
-      <Header resumeUrl={hero.content.resumeUrl} />
-      <PortfolioRenderer snapshot={portfolio} />
-      <Footer />
-    </div>
-  );
+  return <PublishedPortfolioPage snapshot={portfolio} />;
 }

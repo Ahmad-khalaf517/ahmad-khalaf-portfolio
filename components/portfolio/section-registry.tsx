@@ -6,6 +6,7 @@ import Hero from "@/components/sections/hero";
 import HireMe from "@/components/sections/hire-me";
 import Projects from "@/components/sections/projects";
 import type {
+  PublishedPortfolioSnapshot,
   PublishedSection,
   PublishedSectionKind,
   PublishedSectionOfKind,
@@ -14,15 +15,17 @@ import type {
 type SectionRegistry = {
   [TKind in PublishedSectionKind]: (
     section: PublishedSectionOfKind<TKind>,
+    snapshot: PublishedPortfolioSnapshot,
   ) => ReactNode;
 };
 
 export const sectionRegistry = {
-  hero: (section) => (
+  hero: (section, snapshot) => (
     <Hero
       sectionId={section.id}
       content={section.content}
       technologies={section.technologies}
+      identity={snapshot.identity}
     />
   ),
   about: (section) => (
@@ -42,10 +45,13 @@ export const sectionRegistry = {
   ),
 } satisfies SectionRegistry;
 
-export function renderPublishedSection(section: PublishedSection): ReactNode {
+export function renderPublishedSection(
+  section: PublishedSection,
+  snapshot: PublishedPortfolioSnapshot,
+): ReactNode {
   switch (section.kind) {
     case "hero":
-      return sectionRegistry.hero(section);
+      return sectionRegistry.hero(section, snapshot);
     case "about":
       return sectionRegistry.about(section);
     case "experience":

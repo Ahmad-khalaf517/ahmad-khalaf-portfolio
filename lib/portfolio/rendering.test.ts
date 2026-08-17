@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createLocalPublishedPortfolio } from "../data/local-content-adapter";
-import { getRenderableSections } from "./rendering";
+import { getPortfolioNavigation, getRenderableSections } from "./rendering";
 
 describe("portfolio rendering order", () => {
   it("sorts enabled sections by their configured position", async () => {
@@ -38,5 +38,18 @@ describe("portfolio rendering order", () => {
         (section) => section.kind === "projects",
       ),
     ).toBe(false);
+  });
+
+  it("derives navigation from enabled section IDs and labels", async () => {
+    const snapshot = await createLocalPublishedPortfolio();
+    const navigation = getPortfolioNavigation(snapshot);
+
+    expect(navigation.sectionIds[0]).toBe("hero");
+    expect(navigation.links[0]).toEqual({
+      id: "about",
+      href: "#about",
+      label: "About",
+    });
+    expect(navigation.links.some((link) => link.id === "hero")).toBe(false);
   });
 });

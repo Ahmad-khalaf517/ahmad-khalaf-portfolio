@@ -8,9 +8,10 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Ahmad Khalaf - Software Engineer",
-  description:
-    "Ahmad Khalaf is a software engineer specializing in React, Next.js, and TypeScript. With a passion for crafting scalable and performant web applications, Ahmad has a proven track record of delivering high-quality solutions that users love. Explore Ahmad's portfolio to see his work and experience in action.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      "https://ahmad-khalaf-portfolio.vercel.app",
+  ),
 };
 
 export default function RootLayout({

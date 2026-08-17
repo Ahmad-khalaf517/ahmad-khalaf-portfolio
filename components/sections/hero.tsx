@@ -7,7 +7,10 @@ import SectionContent from "../app/section-content";
 import { CountUp } from "@/components/ui/count-up";
 import { TechMarquee } from "@/components/ui/tech-marquee";
 import type { SocialLink } from "@/lib/content/types";
-import type { PublishedSectionOfKind } from "@/lib/portfolio/schemas";
+import type {
+  PublishedPortfolioSnapshot,
+  PublishedSectionOfKind,
+} from "@/lib/portfolio/schemas";
 
 const socialIcons: Record<SocialLink["platform"], typeof Github> = {
   github: Github,
@@ -25,10 +28,12 @@ const dots = Array.from({ length: 30 }).map(() => ({
 export default function Hero({
   content,
   technologies,
+  identity,
   sectionId = "hero",
 }: {
   content: PublishedSectionOfKind<"hero">["content"];
   technologies: PublishedSectionOfKind<"hero">["technologies"];
+  identity: PublishedPortfolioSnapshot["identity"];
   sectionId?: string;
 }) {
   return (
@@ -93,7 +98,7 @@ export default function Hero({
                 </span>
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg">
-                Hi, I&apos;m <span className="text-primary"> {content.name}</span>{" "}
+                Hi, I&apos;m <span className="text-primary"> {identity.displayName}</span>{" "}
                 — {content.subtext}
               </p>
             </div>
@@ -105,7 +110,7 @@ export default function Hero({
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <AnimatedBorderLink
-                href={content.resumeUrl}
+                href={identity.resume.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 download
@@ -118,7 +123,7 @@ export default function Hero({
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <span className="text-md text-muted-foreground">Follow me: </span>
-              {content.socialLinks.map((social) => {
+              {identity.socialLinks.map((social) => {
                 const Icon = socialIcons[social.platform];
                 return (
                   <a
@@ -149,7 +154,7 @@ export default function Hero({
                   width={430}
                   height={430}
                   src={content.profileImage}
-                  alt={content.name}
+                  alt={identity.displayName}
                   sizes="(min-width: 1024px) 430px, (min-width: 640px) 430px, calc(100vw - 64px)"
                   loading="eager"
                   className="w-full aspect-square object-cover rounded-2xl"
