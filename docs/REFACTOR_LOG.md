@@ -27,6 +27,7 @@ Every step records:
 | 6 | Theme-token boundary and shared presentation primitives | Completed |
 | 7 | Contact action hardening | Completed |
 | 8 | Dead-code cleanup, documentation, and full regression checks | Completed |
+| 9 | React Hook Form and shared Zod contact validation | Completed |
 
 ## Step 1 — Runtime content schemas and schema tests
 
@@ -455,3 +456,55 @@ Google at build time.
 
 - Supabase dependencies, migrations, OAuth, RLS, Storage policies, and dashboard routes begin
   only after this refactor branch is reviewed.
+
+## Step 9 — React Hook Form and shared Zod contact validation
+
+### Why
+
+The contact form maintained each field, loading state, and submission error manually while the
+Server Action owned the only structured validation. Dashboard forms will need predictable field
+state and validation without maintaining separate browser and server rules.
+
+### Changes
+
+- Added React Hook Form and the official Hook Form Zod resolver.
+- Connected the contact form directly to the existing contact Zod schema.
+- Separated the schema's raw input and normalized output types so the form and Server Action
+  have an explicit shared boundary.
+- Added user-facing Zod messages for required, malformed, and oversized fields.
+- Replaced manual field and loading state with `register`, `handleSubmit`, `isSubmitting`,
+  `reset`, and root submission errors.
+- Added inline, accessible field feedback with `aria-invalid`, `aria-describedby`, and alert
+  semantics while preserving the existing success feedback and honeypot.
+- Kept the Server Action's schema parse as the authoritative security boundary for direct or
+  forged calls.
+
+### Files
+
+- `components/sections/contact-form.tsx`
+- `lib/contact/schemas.ts`
+- `lib/actions/contact.ts`
+- `package.json`
+- `pnpm-lock.yaml`
+- `README.md`
+
+### Verification
+
+- `pnpm test` — 23 tests passed across seven suites.
+- `pnpm typecheck` — regenerated Next route types and passed TypeScript.
+- `pnpm lint` — passed.
+- `pnpm build` — passed, including static generation for `/` and `/p/full-stack`.
+
+### Decisions
+
+- The same Zod schema is used by the resolver and parsed again in the Server Action. Client
+  validation improves feedback but is never trusted as the security boundary.
+- Native browser validation is disabled for this form so every field receives consistent Zod
+  messages and accessible error markup.
+- The form validates fields on blur and validates the full payload on submit, balancing timely
+  feedback with a low-noise typing experience.
+
+### Deferred
+
+- A shared dashboard form-field component should be extracted after the first dashboard form
+  reveals the reusable API; extracting it from a single form now would be speculative.

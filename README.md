@@ -46,8 +46,8 @@ Important documents:
 - Shareable portfolio slug routes with static generation.
 - Validated semantic theme tokens, density, typography, radius, and motion presets.
 - Runtime validation for local and future database content.
-- Hardened contact Server Action with strict input limits, honeypot, timeout, and bounded rate
-  limiting.
+- React Hook Form contact flow with shared client/server Zod validation, strict input limits,
+  honeypot, timeout, and bounded rate limiting.
 - Responsive, accessible interactions with reduced-motion support.
 - Locally hosted Geist font assets for deterministic builds.
 

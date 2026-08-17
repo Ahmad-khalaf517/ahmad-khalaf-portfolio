@@ -6,7 +6,7 @@ import { sendContactEmail } from "@/lib/contact/emailjs";
 import { createRateLimiter } from "@/lib/contact/rate-limit";
 import {
   contactFormInputSchema,
-  type ContactFormInput,
+  type ContactFormFields,
 } from "@/lib/contact/schemas";
 
 interface ContactFormResult {
@@ -31,7 +31,7 @@ async function getRateLimitKey(): Promise<string> {
 }
 
 export async function submitContactForm(
-  input: ContactFormInput,
+  input: ContactFormFields,
 ): Promise<ContactFormResult> {
   const parsedInput = contactFormInputSchema.safeParse(input);
 
