@@ -39,18 +39,25 @@ export function ContactForm({ idPrefix }: { idPrefix: string }) {
     setIsLoading(true);
     setSubmitStatus({ type: null, message: "" });
 
-    const result = await submitContactForm({ ...formData, website });
+    try {
+      const result = await submitContactForm({ ...formData, website });
 
-    setSubmitStatus({
-      type: result.success ? "success" : "error",
-      message: result.message,
-    });
+      setSubmitStatus({
+        type: result.success ? "success" : "error",
+        message: result.message,
+      });
 
-    if (result.success) {
-      setFormData({ name: "", email: "", message: "" });
+      if (result.success) {
+        setFormData({ name: "", email: "", message: "" });
+      }
+    } catch {
+      setSubmitStatus({
+        type: "error",
+        message: "Failed to send message. Please try again later.",
+      });
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (

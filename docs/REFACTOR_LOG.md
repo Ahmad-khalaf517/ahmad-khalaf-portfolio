@@ -25,7 +25,7 @@ Every step records:
 | 4 | Data-driven navigation, footer, metadata, and resume | Completed |
 | 5 | Public/client boundary cleanup and reusable preview rendering | Completed |
 | 6 | Theme-token boundary and shared presentation primitives | Completed |
-| 7 | Contact action hardening | Planned |
+| 7 | Contact action hardening | Completed |
 | 8 | Dead-code cleanup, documentation, and full regression checks | Planned |
 
 ## Step 1 — Runtime content schemas and schema tests
@@ -349,3 +349,52 @@ to apply inconsistently.
 
 - Dashboard controls, contrast warnings, and preset selection belong to the appearance-editor
   phase. This step only establishes the validated rendering contract.
+
+## Step 7 — Contact mutation hardening
+
+### Why
+
+Server Actions are public mutation endpoints. The original action manually trimmed expected
+strings, had no maximum lengths or request timeout, logged provider response bodies, and had
+no application-level abuse bound.
+
+### Changes
+
+- Added a strict Zod input schema with trimming, email normalization, and field-size limits.
+- Added validated EmailJS environment configuration.
+- Moved provider delivery into a focused adapter with a 10-second abort timeout.
+- Stopped logging provider response bodies that may contain unnecessary details.
+- Added a bounded in-memory rate limiter keyed by a hash of the forwarded client address.
+- Preserved the honeypot behavior without disclosing bot detection.
+- Made the client form recover from unexpected Server Action failures without remaining in a
+  loading state.
+- Added input-normalization, invalid-direct-call, and rate-window tests.
+
+### Files
+
+- `lib/actions/contact.ts`
+- `lib/contact/schemas.ts`
+- `lib/contact/emailjs.ts`
+- `lib/contact/rate-limit.ts`
+- `lib/contact/contact.test.ts`
+- `components/sections/contact-form.tsx`
+
+### Verification
+
+- `pnpm test` — 23 tests passed across seven suites.
+- `pnpm typecheck` — passed.
+- `pnpm lint` — passed.
+- `pnpm build` — passed with the hardened Server Action in the production bundle.
+
+### Decisions
+
+- The in-memory limiter is a bounded defense-in-depth control, not a distributed guarantee.
+  Production hosting/WAF rate limiting should still be enabled when the dashboard is deployed.
+- Raw client addresses are not stored in the limiter; only a one-way SHA-256 key is retained.
+- The browser receives intentionally generic delivery failures while server logs retain only
+  provider status or error class.
+
+### Deferred
+
+- Contact submission persistence and an admin inbox remain outside the dashboard MVP.
+- A distributed rate-limit store can replace the local limiter if traffic or abuse warrants it.
