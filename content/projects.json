@@ -8,6 +8,21 @@
   "ctaLabel": "View All Projects",
   "items": [
     {
+      "title": "Throughline",
+      "description": "AI-assisted project planning that turns a brief into approved requirements, architecture, UI plans, and a traceable backlog. Changes flag the specific downstream work that needs review.",
+      "image": "/projects/throughline.png",
+      "tags": ["Next.js", "TypeScript", "PostgreSQL", "OpenAI"],
+      "github": "https://github.com/Ahmad-khalaf517/Throughline",
+      "pinned": true
+    },
+    {
+      "title": "HRFlow",
+      "description": "A synthetic-data HR and payroll demo covering employees, contracts, attendance, leave, payroll review, and payslips with role-based access.",
+      "image": "/projects/hrflow.svg",
+      "tags": ["Django", "Python", "PostgreSQL", "Tailwind CSS"],
+      "github": "https://github.com/Ahmad-khalaf517/HRFlow"
+    },
+    {
       "title": "Boardly",
       "description": "BillBoard Hub: a Next.js/MongoDB SaaS for booking and managing physical billboard ad space — advertisers reserve/pay (Stripe) for slots, admins schedule and approve, replacing manual, error-prone billboard sales coordination.",
       "image": "/projects/boardly.png",

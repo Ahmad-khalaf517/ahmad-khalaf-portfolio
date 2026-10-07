@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">HRFlow</title>
+  <desc id="desc">A visual overview of the employee to payroll workflow.</desc>
+  <rect width="1200" height="630" fill="#ecf3ef"/>
+  <rect x="0" y="0" width="16" height="630" fill="#176b58"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="72" y="112" fill="#176b58" font-size="29" font-weight="700" letter-spacing="5">HRFLOW</text>
+    <text x="72" y="213" fill="#172b26" font-size="68" font-weight="700">People to payroll.</text>
+    <text x="74" y="266" fill="#4b645b" font-size="25">A connected HR workflow for a synthetic-data demo</text>
+    <line x1="74" y1="343" x2="1126" y2="343" stroke="#aec8bb" stroke-width="2"/>
+    <g fill="#ffffff" stroke="#a7c4b6" stroke-width="2">
+      <rect x="72" y="394" width="238" height="110" rx="16"/>
+      <rect x="344" y="394" width="238" height="110" rx="16"/>
+      <rect x="616" y="394" width="238" height="110" rx="16"/>
+      <rect x="888" y="394" width="238" height="110" rx="16"/>
+    </g>
+    <g fill="#176b58" font-size="16" font-weight="700" letter-spacing="2">
+      <text x="94" y="430">01 / PEOPLE</text>
+      <text x="366" y="430">02 / TIME</text>
+      <text x="638" y="430">03 / PAYROLL</text>
+      <text x="910" y="430">04 / PAYSLIP</text>
+    </g>
+    <g fill="#172b26" font-size="18" font-weight="600">
+      <text x="94" y="470">Employees &amp; contracts</text>
+      <text x="366" y="470">Attendance &amp; leave</text>
+      <text x="638" y="470">Review &amp; approval</text>
+      <text x="910" y="470">Role-scoped access</text>
+    </g>
+    <text x="72" y="576" fill="#4b645b" font-size="18" letter-spacing="1">DJANGO  /  POSTGRESQL  /  TAILWIND CSS</text>
+  </g>
+</svg>
