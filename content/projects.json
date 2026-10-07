@@ -10,7 +10,7 @@
     {
       "title": "Throughline",
       "description": "AI-assisted project planning that turns a brief into approved requirements, architecture, UI plans, and a traceable backlog. Changes flag the specific downstream work that needs review.",
-      "image": "/projects/throughline.png",
+      "image": "/projects/throughline-live.webp",
       "tags": ["Next.js", "TypeScript", "PostgreSQL", "OpenAI"],
       "link": "https://throughline-go.vercel.app/",
       "github": "https://github.com/Ahmad-khalaf517/Throughline",
