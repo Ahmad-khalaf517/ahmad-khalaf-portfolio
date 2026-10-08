@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Pin } from "lucide-react";
 // import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import Image from "next/image";
 import Github from "@/assets/icons/github";
@@ -40,6 +40,12 @@ export default function Projects({ content }: { content: ProjectsContent }) {
             >
               {/* Image */}
               <div className="relative overflow-hidden aspect-video">
+                {project.pinned && (
+                  <span className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-background/90 px-3 py-1.5 text-xs font-semibold text-primary shadow-sm backdrop-blur-sm">
+                    <Pin className="h-3.5 w-3.5" aria-hidden="true" />
+                    Pinned
+                  </span>
+                )}
                 <Image
                   src={project.image}
                   alt={project.title}

@@ -64,6 +64,7 @@ export interface ProjectItem {
   tags: string[];
   link?: string;
   github: string;
+  pinned?: boolean;
 }
 
 export interface ProjectsContent {
