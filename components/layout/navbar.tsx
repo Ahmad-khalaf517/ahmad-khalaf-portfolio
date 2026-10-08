@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { ResumeButtonGroup } from "@/components/ui/resume-button-group";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -19,6 +20,7 @@ const sectionIds = ["hero", "about", "experience", "projects", "hire-me", "conta
 export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const activeSection = useActiveSection(sectionIds);
+  const isHome = usePathname() === "/";
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -34,7 +36,7 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
   return (
     <>
       <nav className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#" aria-label="Back to top" className="inline-flex p-1 -m-1 rounded-xl">
+        <a href={isHome ? "#" : "/"} aria-label={isHome ? "Back to top" : "Back to home"} className="inline-flex p-1 -m-1 rounded-xl">
           <Image
             src="/logo.svg"
             alt="Logo"
@@ -49,11 +51,11 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
         <div className="hidden lg:flex items-center gap-1">
           <ul className="glass rounded-full px-2 py-1 flex items-center gap-1">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.slice(1);
+              const isActive = isHome && activeSection === link.href.slice(1);
               return (
                 <li key={link.href}>
                   <a
-                    href={link.href}
+                    href={isHome ? link.href : `/${link.href}`}
                     aria-current={isActive ? "true" : undefined}
                     className={`px-4 py-2 text-sm rounded-full transition-colors ${
                       isActive
@@ -94,10 +96,10 @@ export default function Navbar({ resumeUrl }: { resumeUrl: string }) {
         >
           <div className="container mx-auto px-6 py-5 flex flex-col gap-2">
             {navLinks.map((link, index) => {
-              const isActive = activeSection === link.href.slice(1);
+              const isActive = isHome && activeSection === link.href.slice(1);
               return (
                 <a
-                  href={link.href}
+                  href={isHome ? link.href : `/${link.href}`}
                   key={index}
                   onClick={() => setIsMobileMenuOpen(false)}
                   aria-current={isActive ? "true" : undefined}

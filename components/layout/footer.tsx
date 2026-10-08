@@ -20,7 +20,7 @@ const footerLinks = [
   { href: "#contact", label: "Contact" },
 ];
 
-export const Footer = () => {
+export const Footer = ({ homeHref = "" }: { homeHref?: string }) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -29,7 +29,7 @@ export const Footer = () => {
         <div className="flex flex-col flex-wrap md:flex-row items-center justify-between gap-8">
           {/* Logo & Copyright */}
           <div className="text-center md:text-left">
-            <a href="#" aria-label="Back to top" className="inline-flex p-1 -m-1 rounded-xl">
+            <a href={homeHref || "#"} aria-label={homeHref ? "Back to home" : "Back to top"} className="inline-flex p-1 -m-1 rounded-xl">
               <Image
                 src="/logo.svg"
                 alt="Logo"
@@ -48,7 +48,7 @@ export const Footer = () => {
             {footerLinks.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={`${homeHref}${link.href}`}
                 className="inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
