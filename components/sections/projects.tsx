@@ -29,13 +29,11 @@ export default function Projects({ content, showAll = false }: { content: Projec
         </div>
 
         {/* Projects Grid */}
-        <div className={showAll
-          ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          : "grid grid-flow-col auto-cols-[100%] gap-6 overflow-x-auto pb-4 snap-x snap-mandatory sm:auto-cols-[calc((100%_-_1.5rem)/2)] lg:grid-flow-row lg:grid-cols-3 lg:overflow-visible lg:pb-0 lg:snap-none"}>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visibleProjects.map((project, idx) => (
             <TiltCard
               key={project.title}
-              className="group glass rounded-2xl overflow-hidden animate-fade-in snap-start"
+              className="group glass rounded-2xl overflow-hidden animate-fade-in"
               style={{ animationDelay: `${(idx + 1) * 100}ms` }}
             >
               {/* Image */}
@@ -51,7 +49,7 @@ export default function Projects({ content, showAll = false }: { content: Projec
                   alt={project.title}
                   width={600}
                   height={400}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-focus-within:scale-110"
                 />
                 <div
