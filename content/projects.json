@@ -30,7 +30,8 @@
       "image": "/projects/boardly-cover.webp",
       "tags": ["Next.js", "Typescript", "MongoDB"],
       "link": "https://billboard-hub.vercel.app/",
-      "github": "https://github.com/abdalrahmanhajjo/BillBoard-Hub"
+      "github": "https://github.com/abdalrahmanhajjo/BillBoard-Hub",
+      "pinned": true
     },
     {
       "title": "Lobby",
@@ -38,7 +39,8 @@
       "image": "/projects/lobby-cover.webp",
       "tags": ["Angular", "LiveKit", "Supabase", "Tailwind", "PostgreSql", "Socket.io"],
       "link": "https://lobby-hub.vercel.app/",
-      "github": "https://github.com/Ahmad-khalaf517/lobby"
+      "github": "https://github.com/Ahmad-khalaf517/lobby",
+      "pinned": true
     },
     {
       "title": "SRMS",
